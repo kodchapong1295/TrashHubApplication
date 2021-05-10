@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/Viewreport.dart';
+import 'package:trashhub/constants.dart';
+import 'package:trashhub/components/RoundedButton.dart';
 
 class AuthenMenu extends StatelessWidget {
   @override
@@ -10,6 +12,7 @@ class AuthenMenu extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
@@ -28,14 +31,22 @@ class AuthenMenu extends StatelessWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'Test',
-                        border: OutlineInputBorder(),
-                      ),
+                    RoundedButton(
+                      title: "Log in",
+                      btnColor: kPrimaryColor,
+                      textColor: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    RoundedButton(
+                      title: "Sign up",
+                      btnColor: kPrimaryColor,
+                      textColor: Colors.white,
                     ),
                   ],
                 ),
