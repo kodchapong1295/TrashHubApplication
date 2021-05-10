@@ -12,13 +12,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          fontFamily: 'Open Sans',
-          primaryColor: mainColor,
-          textTheme: TextTheme(
-              headline1: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: mainColor))),
+        fontFamily: 'Open Sans',
+        primaryColor: mainColor,
+        textTheme: TextTheme(
+          headline1: TextStyle(
+            fontSize: 48,
+            fontWeight: FontWeight.bold,
+            color: mainColor,
+          ),
+          bodyText1: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.normal,
+            color: mainColor,
+          ),
+        ),
+      ),
       home: AuthenMenu(),
     );
   }
