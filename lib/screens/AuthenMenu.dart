@@ -5,13 +5,22 @@ class AuthenMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Text(
-              'TRASH HUB',
-              style: Theme.of(context).textTheme.headline1,
-            ),
-          ],
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                child: Image.asset('images/logo.png'),
+                width: 184,
+              ),
+              Text(
+                'TRASH HUB',
+                style: Theme.of(context).textTheme.headline1,
+              ),
+            ],
+          ),
         ),
       ),
     );
