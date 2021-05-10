@@ -6,14 +6,19 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  Color mainColor = Color(0xff2ba58a);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          fontFamily: 'Open Sans',
+          primaryColor: mainColor,
+          textTheme: TextTheme(
+              headline1: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                  color: mainColor))),
       home: AuthenMenu(),
     );
   }

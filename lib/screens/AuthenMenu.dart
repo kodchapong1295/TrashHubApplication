@@ -6,7 +6,12 @@ class AuthenMenu extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: [Text('TRASH HUB')],
+          children: [
+            Text(
+              'TRASH HUB',
+              style: Theme.of(context).textTheme.headline1,
+            ),
+          ],
         ),
       ),
     );
