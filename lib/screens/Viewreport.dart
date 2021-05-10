@@ -14,33 +14,40 @@ class _ViewReportState extends State<ViewReport> {
       body: Container(
         child: SingleChildScrollView(
           child: Container(
-            child: Column(
-              children:<Widget>[
-                SizedBox(
-                  height:height,
-                  child: Stack(
-                    children:<Widget>[
-                      Positioned(
+            child: Column(children: <Widget>[
+              SizedBox(
+                  height: height,
+                  child: Stack(children: <Widget>[
+                    Positioned(
                         child: SizedBox(
-                          width: width,
-                          height: 350,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(color: Colors.white),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned(
-                                  top:height * (6/ 100) ,
-                                )
-                              ],
-                            ),
-                          ),
-                        )
-                      )
-                    ]
-                  )
-                )
-              ]
-            ),
+                      width: width,
+                      height: 350,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned(
+                              top: height * (6 / 100),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: width * 0.15,
+                                    child: IconButton(
+                                      icon: Icon(Icons.arrow_back,
+                                          color: Colors.green),
+                                      onPressed: () =>
+                                          {Navigator.of(context).pop(false)},
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ))
+                  ]))
+            ]),
           ),
         ),
       ),
