@@ -12,31 +12,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-<<<<<<< HEAD
         fontFamily: 'Open Sans',
-        primaryColor: mainColor,
+        primaryColor: kPrimaryColor,
         textTheme: TextTheme(
           headline1: TextStyle(
             fontSize: 48,
             fontWeight: FontWeight.bold,
-            color: mainColor,
+            color: kPrimaryColor,
           ),
           bodyText1: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            color: mainColor,
+            color: kPrimaryColor,
           ),
         ),
       ),
-=======
-          fontFamily: 'Open Sans',
-          primaryColor: kPrimaryColor,
-          textTheme: TextTheme(
-              headline1: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: kPrimaryColor))),
->>>>>>> 36569d592d0ba6ef5ba6321a47829ce198f9d5a7
       home: AuthenMenu(),
     );
   }
