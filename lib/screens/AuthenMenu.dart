@@ -36,17 +36,19 @@ class AuthenMenu extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     RoundedButton(
-                      title: "Log in",
+                      title: "LOG IN",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
+                      onPressed: () {},
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     RoundedButton(
-                      title: "Sign up",
+                      title: "SIGN UP",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
+                      onPressed: () {},
                     ),
                   ],
                 ),

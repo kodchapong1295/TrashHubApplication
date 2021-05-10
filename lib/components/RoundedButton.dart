@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:trashhub/constants.dart';
 
 class RoundedButton extends StatelessWidget {
   String title;
   Color btnColor;
   Color textColor;
+  Function onPressed;
 
-  RoundedButton({this.title, this.btnColor, this.textColor});
+  RoundedButton({this.title, this.btnColor, this.textColor, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return kPrimaryColor;
+      }
+      return kPrimaryColor;
+    }
+
     return Container(
       height: 50,
       child: ElevatedButton(
-        onPressed: null,
+        onPressed: onPressed,
         child: Text(
           title,
-          style: TextStyle(color: textColor),
+          style: Theme.of(context)
+              .textTheme
+              .bodyText1
+              .copyWith(color: Colors.white),
         ),
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -23,12 +40,7 @@ class RoundedButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(25),
             ),
           ),
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) return btnColor;
-              return btnColor; // Use the component's default.
-            },
-          ),
+          backgroundColor: MaterialStateProperty.resolveWith(getColor),
         ),
       ),
     );
