@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trashhub/screens/Viewreport.dart';
 
 class AuthenMenu extends StatelessWidget {
   @override
@@ -19,6 +20,15 @@ class AuthenMenu extends StatelessWidget {
                 'TRASH HUB',
                 style: Theme.of(context).textTheme.headline1,
               ),
+              TextButton(
+                child: Text("Test to view request na ai sus"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ViewReport()),
+                  );
+                },
+              )
             ],
           ),
         ),
