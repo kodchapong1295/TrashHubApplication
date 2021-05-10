@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/Viewreport.dart';
-import 'package:trashhub/screens/UserLoginScreen.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 
-class AuthenMenu extends StatelessWidget {
+class UserLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +18,7 @@ class AuthenMenu extends StatelessWidget {
                 children: [
                   Container(
                     child: Image.asset('images/logo.png'),
-                    width: 184,
+                    width: MediaQuery.of(context).size.width * 0.4,
                   ),
                   Text(
                     'TRASH HUB',
@@ -36,30 +35,32 @@ class AuthenMenu extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    RoundedButton(
-                      title: "LOG IN",
-                      btnColor: kPrimaryColor,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserLoginScreen()),
-                        );
-                      },
+                    TextFormField(
+                      decoration: kTextField,
                     ),
                     SizedBox(
                       height: 20,
                     ),
+                    TextFormField(
+                      decoration: kTextField,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
                     RoundedButton(
-                      title: "SIGN UP",
+                      title: "LOG IN",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
                       onPressed: () {},
                     ),
                     TextButton(
                       child: Text(
-                        'Login as NGOs',
+                        'Forget Password',
                         style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.center,
                       ),
@@ -74,15 +75,6 @@ class AuthenMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              TextButton(
-                child: Text("Test to view request na ai sus"),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ViewReport()),
-                  );
-                },
-              )
             ],
           ),
         ),
