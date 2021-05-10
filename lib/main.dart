@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/AuthenMenu.dart';
+import 'package:trashhub/screens/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 
 void main() {
