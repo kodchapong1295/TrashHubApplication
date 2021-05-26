@@ -26,21 +26,21 @@ class UserRegisterScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Container(
-                    child: Image.asset('images/logo.png'),
-                    width: MediaQuery.of(context).size.width * 0.4,
-                  ),
-                  Text(
-                    'TRASH HUB',
-                    style: Theme.of(context).textTheme.headline1,
-                  ),
-                  Text(
-                    'Trash Problem Notifier',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Welcome!',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    Text(
+                      'Thanks for saving the world with us',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -49,7 +49,28 @@ class UserRegisterScreen extends StatelessWidget {
                   children: [
                     TextFormField(
                       onChanged: (email) => {this.email = email},
-                      decoration: kTextField.copyWith(hintText: 'Enter Email'),
+                      decoration: kTextField.copyWith(hintText: 'Firstname'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      onChanged: (password) => {this.password = password},
+                      decoration: kTextField.copyWith(hintText: 'Lastname'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      onChanged: (password) => {this.password = password},
+                      decoration: kTextField.copyWith(hintText: 'Email'),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      onChanged: (password) => {this.password = password},
+                      decoration: kTextField.copyWith(hintText: 'Password'),
                     ),
                     SizedBox(
                       height: 20,
@@ -57,7 +78,7 @@ class UserRegisterScreen extends StatelessWidget {
                     TextFormField(
                       onChanged: (password) => {this.password = password},
                       decoration:
-                          kTextField.copyWith(hintText: 'Enter Password'),
+                          kTextField.copyWith(hintText: 'Confirm Password'),
                     ),
                   ],
                 ),
@@ -68,7 +89,7 @@ class UserRegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     RoundedButton(
-                      title: "LOG IN",
+                      title: "REGISTER",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
                       onPressed: () async {
@@ -80,20 +101,6 @@ class UserRegisterScreen extends StatelessWidget {
                           print('Not loggin');
                         }
                         // print('$email $password');
-                      },
-                    ),
-                    TextButton(
-                      child: Text(
-                        'Forget Password',
-                        style: Theme.of(context).textTheme.bodyText1,
-                        textAlign: TextAlign.center,
-                      ),
-                      onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //       builder: (context) => UserLoginScreen()),
-                        // );
                       },
                     ),
                   ],

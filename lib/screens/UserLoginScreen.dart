@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
@@ -49,15 +49,14 @@ class UserLoginScreen extends StatelessWidget {
                   children: [
                     TextFormField(
                       onChanged: (email) => {this.email = email},
-                      decoration: kTextField.copyWith(hintText: 'Enter Email'),
+                      decoration: kTextField.copyWith(hintText: 'Email'),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
                       onChanged: (password) => {this.password = password},
-                      decoration:
-                          kTextField.copyWith(hintText: 'Enter Password'),
+                      decoration: kTextField.copyWith(hintText: 'Password'),
                     ),
                   ],
                 ),
@@ -76,10 +75,19 @@ class UserLoginScreen extends StatelessWidget {
                             await signInWithEmailAndPassword(email, password);
                         if (user != null) {
                           print(user);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserProfileScreen()),
+                          );
                         } else {
-                          print('Not loggin');
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserLoginScreen()),
+                          );
                         }
-                        // print('$email $password');
                       },
                     ),
                     TextButton(
@@ -89,11 +97,7 @@ class UserLoginScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserLoginScreen()),
-                        );
+                        print('Forgot Password');
                       },
                     ),
                   ],
