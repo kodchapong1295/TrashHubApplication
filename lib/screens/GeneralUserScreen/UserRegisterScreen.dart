@@ -21,6 +21,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
   String lastname;
   File _image;
   final picker = ImagePicker();
+  String imgUrl;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -137,12 +138,17 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                       title: "REGISTER",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () {
-                        context.read<FlutterFireAuthService>().signUpUser(
+                      onPressed: () async {
+                        final imgUrl = await context
+                            .read<FlutterFireAuthService>()
+                            .uploadImageToFirebase(_image);
+                        this.imgUrl = imgUrl;
+                        await context.read<FlutterFireAuthService>().signUpUser(
                             email: email,
                             password: password,
                             firstname: firstname,
                             lastname: lastname,
+                            imgUrl: imgUrl,
                             context: context);
                       },
                     ),

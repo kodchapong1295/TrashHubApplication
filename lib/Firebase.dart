@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 
@@ -44,6 +45,7 @@ class FlutterFireAuthService {
       String password,
       String firstname,
       String lastname,
+      String imgUrl,
       BuildContext context}) async {
     try {
       UserCredential authResult = await _firebaseAuth
@@ -54,6 +56,7 @@ class FlutterFireAuthService {
         'firstname': firstname,
         'lastname': lastname,
         'email': email,
+        'imgUrl': imgUrl,
       });
       Navigator.push(
         context,
@@ -95,5 +98,19 @@ class FlutterFireAuthService {
       print(e.toString());
       return e.message;
     }
+  }
+
+  Future<String> uploadImageToFirebase(img) async {
+    final String fileName = DateTime.now().microsecond.toString();
+    final Reference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child('userPics/$fileName');
+    final UploadTask uploadTask = firebaseStorageRef.putFile(img);
+    String url;
+    await uploadTask.whenComplete(() async {
+      url = await uploadTask.snapshot.ref.getDownloadURL();
+    }).catchError((onError) {
+      print(onError);
+    });
+    return url;
   }
 }
