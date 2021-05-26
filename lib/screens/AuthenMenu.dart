@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/UserLoginScreen.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserRegisterScreen.dart';
+import 'package:trashhub/screens/NGOsScreen/NGOsLoginScreen.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
@@ -76,7 +77,7 @@ class AuthenMenu extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UserLoginScreen()),
+                              builder: (context) => NGOsLoginScreen()),
                         );
                       },
                     ),
