@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trashhub/screens/UserLoginScreen.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
-import 'package:trashhub/screens/UserProfile.dart';
+import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 
 import 'NGOsScreen/ViewReportNGO.dart';
 
