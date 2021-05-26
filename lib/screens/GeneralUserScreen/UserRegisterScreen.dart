@@ -48,21 +48,21 @@ class UserRegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextFormField(
-                      onChanged: (email) => {this.email = email},
+                      // onChanged: (email) => {this.email = email},
                       decoration: kTextField.copyWith(hintText: 'Firstname'),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      onChanged: (password) => {this.password = password},
+                      // onChanged: (password) => {this.password = password},
                       decoration: kTextField.copyWith(hintText: 'Lastname'),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      onChanged: (password) => {this.password = password},
+                      onChanged: (email) => {this.email = email},
                       decoration: kTextField.copyWith(hintText: 'Email'),
                     ),
                     SizedBox(
@@ -76,7 +76,7 @@ class UserRegisterScreen extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      onChanged: (password) => {this.password = password},
+                      // onChanged: (password) => {this.password = password},
                       decoration:
                           kTextField.copyWith(hintText: 'Confirm Password'),
                     ),
@@ -92,7 +92,8 @@ class UserRegisterScreen extends StatelessWidget {
                       title: "REGISTER",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () {
+                      onPressed: () async {
+                        await RegisterUser(email, password);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

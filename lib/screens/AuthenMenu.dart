@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trashhub/screens/UserLoginScreen.dart';
+import 'package:trashhub/screens/GeneralUserScreen/UserLoginScreen.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserRegisterScreen.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsLoginScreen.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsRegisterScreen.dart';
