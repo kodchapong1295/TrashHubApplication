@@ -96,7 +96,7 @@ class UserRegisterScreen extends StatelessWidget {
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
                       onPressed: () {
-                        context.read<FlutterFireAuthService>().signUp(
+                        context.read<FlutterFireAuthService>().signUpUser(
                             email: email,
                             password: password,
                             firstname: firstname,

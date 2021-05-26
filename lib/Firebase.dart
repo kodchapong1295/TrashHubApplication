@@ -39,7 +39,7 @@ class FlutterFireAuthService {
     }
   }
 
-  Future<String> signUp(
+  Future<String> signUpUser(
       {String email,
       String password,
       String firstname,
@@ -53,6 +53,35 @@ class FlutterFireAuthService {
         'id': newUser.uid,
         'firstname': firstname,
         'lastname': lastname,
+        'email': email,
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => UserProfileScreen(),
+        ),
+      );
+      return "Success";
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return e.message;
+    }
+  }
+
+  Future<String> signUpNGOs(
+      {String email,
+      String password,
+      String orgname,
+      String size,
+      BuildContext context}) async {
+    try {
+      UserCredential authResult = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User newUser = authResult.user;
+      await _firestore.collection('ngo').doc(newUser.uid).set({
+        'id': newUser.uid,
+        'orgName': orgname,
+        'size': size,
         'email': email,
       });
       Navigator.push(

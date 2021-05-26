@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 class NGOsRegisterScreen extends StatelessWidget {
   String email;
   String password;
+  String orgName;
+  String size;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class NGOsRegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextFormField(
-                      onChanged: (email) => {this.email = email},
+                      onChanged: (orgname) => {this.orgName = orgname},
                       decoration:
                           kTextField.copyWith(hintText: 'Organization Name'),
                     ),
@@ -57,7 +59,7 @@ class NGOsRegisterScreen extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      onChanged: (password) => {this.password = password},
+                      onChanged: (size) => {this.size = size},
                       decoration:
                           kTextField.copyWith(hintText: 'Size of organization'),
                     ),
@@ -65,7 +67,7 @@ class NGOsRegisterScreen extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      onChanged: (password) => {this.password = password},
+                      onChanged: (email) => {this.email = email},
                       decoration: kTextField.copyWith(hintText: 'Email'),
                     ),
                     SizedBox(
@@ -79,7 +81,7 @@ class NGOsRegisterScreen extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
-                      onChanged: (password) => {this.password = password},
+                      // onChanged: (password) => {this.password = password},
                       decoration:
                           kTextField.copyWith(hintText: 'Confirm Password'),
                     ),
@@ -96,8 +98,12 @@ class NGOsRegisterScreen extends StatelessWidget {
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
                       onPressed: () {
-                        context.read<FlutterFireAuthService>().signUp(
-                            email: email, password: password, context: context);
+                        context.read<FlutterFireAuthService>().signUpNGOs(
+                            email: email,
+                            password: password,
+                            orgname: orgName,
+                            size: size,
+                            context: context);
                       },
                     ),
                   ],
