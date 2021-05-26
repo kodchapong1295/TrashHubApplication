@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
           showDialog(
               context: context,
               builder: (context) => CustomeDialog(
-                    title: "Diloggggggggggg",
+                    title: "Request Details",
                     description:
                         "awdujhoasidosajldsamnjdhbsaudlinsakjdnsadaisdoijsaklmdasdasod;noklsadsad asd lasidkj as;ld kawld ksa;dl asd asd ;li",
                   ));

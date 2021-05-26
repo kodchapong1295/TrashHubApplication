@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:trashhub/components/RoundedButton.dart';
 import 'Trip.dart';
+import 'package:trashhub/constants.dart';
 
 class CustomeDialog extends StatelessWidget {
   final String title, description, button;
@@ -30,12 +32,12 @@ class CustomeDialog extends StatelessWidget {
       children: <Widget>[
         Container(
           padding: EdgeInsets.only(
-            top: 100,
+            top: 50,
             bottom: 16,
             left: 16,
             right: 16,
           ),
-          margin: EdgeInsets.only(top: 16),
+          margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.rectangle,
@@ -55,6 +57,7 @@ class CustomeDialog extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: 24,
+                  color: kPrimaryColor,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -68,11 +71,13 @@ class CustomeDialog extends StatelessWidget {
               SizedBox(height: 24),
               Align(
                 alignment: Alignment.bottomRight,
-                child: FlatButton(
+                child: RoundedButton(
+                  title: "Accept",
+                  btnColor: kPrimaryColor,
+                  textColor: Colors.white,
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Accept"),
                 ),
               )
             ],

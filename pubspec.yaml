@@ -35,6 +35,8 @@ dependencies:
   carousel_slider: ^3.0.0
   firebase_storage: ^8.0.1
   image_picker: ^0.7.3
+  google_maps_place_picker: ^2.0.0-nullsafety.3
+
 
 dev_dependencies:
   flutter_test:
