@@ -32,7 +32,6 @@ dependencies:
   firebase_core: ^1.0.1
   provider: ^5.0.0
   carousel_slider: ^3.0.0
-  intl: 0.15.7
 
 dev_dependencies:
   flutter_test:
