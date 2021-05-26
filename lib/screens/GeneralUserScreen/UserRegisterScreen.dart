@@ -4,6 +4,7 @@ import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
+import 'package:provider/provider.dart';
 
 class UserRegisterScreen extends StatelessWidget {
   String email;
@@ -92,13 +93,9 @@ class UserRegisterScreen extends StatelessWidget {
                       title: "REGISTER",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () async {
-                        await RegisterUser(email, password);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserProfileScreen()),
-                        );
+                      onPressed: () {
+                        context.read<FlutterFireAuthService>().signUp(
+                            email: email, password: password, context: context);
                       },
                     ),
                   ],

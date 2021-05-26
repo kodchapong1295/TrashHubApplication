@@ -4,6 +4,7 @@ import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
+import 'package:provider/provider.dart';
 
 class NGOsLoginScreen extends StatelessWidget {
   String email;
@@ -70,24 +71,9 @@ class NGOsLoginScreen extends StatelessWidget {
                       title: "LOG IN",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () async {
-                        UserCredential user =
-                            await signInWithEmailAndPassword(email, password);
-                        if (user != null) {
-                          print(user);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UserProfileScreen()),
-                          );
-                        } else {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => NGOsLoginScreen()),
-                          );
-                        }
+                      onPressed: () {
+                        context.read<FlutterFireAuthService>().signIn(
+                            email: email, password: password, context: context);
                       },
                     ),
                     TextButton(

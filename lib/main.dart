@@ -1,11 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:trashhub/screens/AuthenMenu.dart';
-
 import 'package:trashhub/constants.dart';
-
+import 'package:trashhub/Firebase.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -19,43 +22,40 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
-      builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          print('ERROR');
-          // return ();
-        }
-
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              fontFamily: 'Open Sans',
-              primaryColor: Colors.white,
-              textTheme: TextTheme(
-                headline1: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                  color: kPrimaryColor,
-                ),
-                bodyText1: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                  color: kPrimaryColor,
-                ),
+    return MultiProvider(
+      providers: [
+        Provider<FlutterFireAuthService>(
+          create: (_) => FlutterFireAuthService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) =>
+              context.read<FlutterFireAuthService>().authStateChanges,
+          initialData: null,
+        )
+      ],
+      child: MaterialApp(
+        title: 'FlutterFire Provider Template',
+        home: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            fontFamily: 'Open Sans',
+            primaryColor: Colors.white,
+            textTheme: TextTheme(
+              headline1: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: kPrimaryColor,
+              ),
+              bodyText1: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                color: kPrimaryColor,
               ),
             ),
-            home: AuthenMenu(),
-          );
-        }
-
-        // Otherwise, show something whilst waiting for initialization to complete
-        return Container();
-      },
+          ),
+          home: AuthenMenu(),
+        ),
+      ),
     );
   }
 }

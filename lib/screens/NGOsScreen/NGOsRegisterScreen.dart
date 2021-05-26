@@ -4,6 +4,7 @@ import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
+import 'package:provider/provider.dart';
 
 class NGOsRegisterScreen extends StatelessWidget {
   String email;
@@ -95,11 +96,8 @@ class NGOsRegisterScreen extends StatelessWidget {
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserProfileScreen()),
-                        );
+                        context.read<FlutterFireAuthService>().signUp(
+                            email: email, password: password, context: context);
                       },
                     ),
                   ],

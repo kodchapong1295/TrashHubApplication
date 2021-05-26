@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:trashhub/constants.dart';
+
 import 'package:trashhub/screens/GeneralUserScreen/UserLoginScreen.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserRegisterScreen.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsLoginScreen.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsRegisterScreen.dart';
-import 'package:trashhub/constants.dart';
+
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
-
 import 'NGOsScreen/ViewReportNGO.dart';
+
+import 'package:provider/provider.dart';
+import 'package:trashhub/Firebase.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User>();
+    if (firebaseUser != null) {
+      print('User has already logged in');
+      return UserProfileScreen();
+    }
     return Scaffold(
       body: SafeArea(
         child: Container(
