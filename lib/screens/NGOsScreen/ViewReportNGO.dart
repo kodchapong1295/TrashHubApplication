@@ -12,10 +12,9 @@ class _ViewReportState extends State<ViewReport> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Center(
-          child: Text('View Report'),
-        ),
+        title: (Text('View Report')),
         elevation: 0,
+        centerTitle: true,
       ),
       body: SafeArea(child: HomeView()),
     );
