@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/Viewreport.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
+import 'package:trashhub/Firebase.dart';
 
 class UserLoginScreen extends StatelessWidget {
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,13 +48,16 @@ class UserLoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextFormField(
-                      decoration: kTextField,
+                      onChanged: (email) => {this.email = email},
+                      decoration: kTextField.copyWith(hintText: 'Enter Email'),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      decoration: kTextField,
+                      onChanged: (password) => {this.password = password},
+                      decoration:
+                          kTextField.copyWith(hintText: 'Enter Password'),
                     ),
                   ],
                 ),
@@ -63,7 +71,12 @@ class UserLoginScreen extends StatelessWidget {
                       title: "LOG IN",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () {},
+                      onPressed: () async {
+                        UserCredential user =
+                            await signInWithEmailAndPassword(email, password);
+                        print(user);
+                        // print('$email $password');
+                      },
                     ),
                     TextButton(
                       child: Text(

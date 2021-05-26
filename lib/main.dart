@@ -26,6 +26,7 @@ class _MyAppState extends State<MyApp> {
         // Check for errors
         if (snapshot.hasError) {
           print('ERROR');
+          // return ();
         }
 
         // Once complete, show your application
@@ -53,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        // return Loading();
+        return Container();
       },
     );
   }
