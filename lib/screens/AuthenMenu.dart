@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trashhub/screens/Viewreport.dart';
 import 'package:trashhub/screens/UserLoginScreen.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
@@ -74,15 +73,6 @@ class AuthenMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              TextButton(
-                child: Text("Test to view request na ai sus"),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ViewReport()),
-                  );
-                },
-              )
             ],
           ),
         ),
