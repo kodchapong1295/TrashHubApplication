@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
@@ -92,15 +92,12 @@ class UserRegisterScreen extends StatelessWidget {
                       title: "REGISTER",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () async {
-                        UserCredential user =
-                            await signInWithEmailAndPassword(email, password);
-                        if (user != null) {
-                          print(user);
-                        } else {
-                          print('Not loggin');
-                        }
-                        // print('$email $password');
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserProfileScreen()),
+                        );
                       },
                     ),
                   ],
