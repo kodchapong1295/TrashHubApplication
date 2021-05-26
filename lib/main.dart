@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/AuthenMenu.dart';
-import 'package:trashhub/screens/UserProfile.dart';
+
 import 'package:trashhub/constants.dart';
 
 import 'package:firebase_core/firebase_core.dart';
