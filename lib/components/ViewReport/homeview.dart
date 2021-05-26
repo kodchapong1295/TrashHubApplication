@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'Trip.dart';
 
 class HomeView extends StatelessWidget {
@@ -30,25 +29,40 @@ class HomeView extends StatelessWidget {
         child: Card(
           child: Padding(
             padding: const EdgeInsets.only(top: 16),
-            child: Column(
+            child: Row(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 8, bottom: 4),
+                  padding: const EdgeInsets.only(top: 5, bottom: 20, left: 20),
                   child: Row(
                     children: <Widget>[
-                      Text(trip.title, style: new TextStyle(fontSize: 24.0)),
-                      Spacer(),
+                      Container(
+                        child: Image.asset('images/logo.png'),
+                        width: 60,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 80),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: Text(
+                                trip.title,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                trip.text,
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8, bottom: 8),
-                  child: Row(
-                    children: <Widget>[
-                      Text(trip.text),
-                    ],
-                  ),
-                )
               ],
             ),
           ),
