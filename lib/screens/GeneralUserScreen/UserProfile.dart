@@ -3,6 +3,9 @@ import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import 'package:provider/provider.dart';
+import 'package:trashhub/Firebase.dart';
+
 import 'UploadReportScreen.dart';
 
 final List<String> imgList = [
@@ -66,6 +69,15 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.logout),
+          onPressed: () {
+            context.read<FlutterFireAuthService>().signOut();
+            if (Navigator.of(context).canPop()) {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
         iconTheme: IconThemeData(
           color: kPrimaryColor, //change your color here
         ),
