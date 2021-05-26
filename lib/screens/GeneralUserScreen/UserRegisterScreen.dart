@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 class UserRegisterScreen extends StatelessWidget {
   String email;
   String password;
+  String firstname;
+  String lastname;
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +51,14 @@ class UserRegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     TextFormField(
-                      // onChanged: (email) => {this.email = email},
+                      onChanged: (fn) => {this.firstname = fn},
                       decoration: kTextField.copyWith(hintText: 'Firstname'),
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      // onChanged: (password) => {this.password = password},
+                      onChanged: (ln) => {this.lastname = ln},
                       decoration: kTextField.copyWith(hintText: 'Lastname'),
                     ),
                     SizedBox(
@@ -95,7 +97,11 @@ class UserRegisterScreen extends StatelessWidget {
                       textColor: Colors.white,
                       onPressed: () {
                         context.read<FlutterFireAuthService>().signUp(
-                            email: email, password: password, context: context);
+                            email: email,
+                            password: password,
+                            firstname: firstname,
+                            lastname: lastname,
+                            context: context);
                       },
                     ),
                   ],
