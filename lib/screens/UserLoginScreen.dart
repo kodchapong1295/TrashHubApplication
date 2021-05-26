@@ -74,7 +74,11 @@ class UserLoginScreen extends StatelessWidget {
                       onPressed: () async {
                         UserCredential user =
                             await signInWithEmailAndPassword(email, password);
-                        print(user);
+                        if (user != null) {
+                          print(user);
+                        } else {
+                          print('Not loggin');
+                        }
                         // print('$email $password');
                       },
                     ),
