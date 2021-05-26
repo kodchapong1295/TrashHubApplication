@@ -4,6 +4,8 @@ import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/screens/UserProfile.dart';
 
+import 'NGOsScreen/ViewReportNGO.dart';
+
 class AuthenMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,19 @@ class AuthenMenu extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => UserLoginScreen()),
+                        );
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        'View report for NGO do not enter!',
+                        style: Theme.of(context).textTheme.bodyText1,
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ViewReport()),
                         );
                       },
                     ),
