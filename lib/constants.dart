@@ -9,13 +9,13 @@ InputDecoration kTextField = InputDecoration(
     borderRadius: BorderRadius.circular(5.0),
     borderSide: BorderSide(
       color: kPrimaryColor,
+      width: 2.0,
     ),
   ),
   enabledBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(5.0),
-    // borderSide: BorderSide(
-    //   color: kPrimaryColor,
-    //   width: 2.0,
-    // ),
+    borderSide: BorderSide(
+      color: kPrimaryColor,
+    ),
   ),
 );
