@@ -17,7 +17,6 @@ class UploadReportScreen extends StatefulWidget {
 
 class _UploadReportScreenState extends State<UploadReportScreen> {
   final TextEditingController inputDescription = TextEditingController();
-
   String inputLocation;
   File _image;
   final picker = ImagePicker();
@@ -28,6 +27,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        print(_image.path);
       } else {
         print('No image selected.');
       }
@@ -92,23 +92,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
                     ),
                   ),
                 ),
-                // Container(
-                //   width: 100,
-                //   height: 100,
-                //   child: _image == null
-                //       ? MaterialButton(
-                //           onPressed: getImage,
-                //           color: kPrimaryColor,
-                //           textColor: Colors.white,
-                //           child: Icon(
-                //             Icons.camera_alt,
-                //             size: 40,
-                //           ),
-                //           padding: EdgeInsets.all(16),
-                //           shape: CircleBorder(),
-                //         )
-                //       : ,
-                // ),
+
                 SizedBox(
                   height: 10,
                 ),
@@ -133,13 +117,24 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
                                   children: [
                                     Expanded(
                                         child: Text(
-                                      _image.path.split('/').last.length >= 28
+                                      _image.path
+                                                  .split('/')
+                                                  .last
+                                                  .replaceAll(
+                                                      'image_picker', "")
+                                                  .length >=
+                                              28
                                           ? _image.path
                                                   .split('/')
                                                   .last
+                                                  .replaceAll(
+                                                      'image_picker', "")
                                                   .substring(0, 28) +
                                               "..."
-                                          : _image.path.split('/').last,
+                                          : _image.path
+                                              .split('/')
+                                              .last
+                                              .replaceAll('image_picker', ""),
                                       textAlign: TextAlign.center,
                                     )),
                                     Icon(
