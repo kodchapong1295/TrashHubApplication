@@ -4,9 +4,18 @@ import 'Trip.dart';
 import 'package:trashhub/constants.dart';
 
 class CustomeDialog extends StatelessWidget {
-  final String title, description, button;
+  final String topic, title, description, button, location;
+  final DateTime date;
+  final String no;
 
-  CustomeDialog({this.title, this.description, this.button});
+  CustomeDialog(
+      {this.topic,
+      this.description,
+      this.button,
+      this.no,
+      this.date,
+      this.title,
+      this.location});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -18,13 +27,17 @@ class CustomeDialog extends StatelessWidget {
   }
 
   Widget dialogContent(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Stack(
       children: <Widget>[
         Container(
+          height: height * .7,
           padding: EdgeInsets.only(
-            top: 50,
+            top: 35,
             bottom: 16,
-            left: 16,
+            left: 6,
             right: 16,
           ),
           margin: EdgeInsets.only(top: 10),
@@ -41,33 +54,76 @@ class CustomeDialog extends StatelessWidget {
             ],
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 24,
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.w700,
+              Container(
+                width: width,
+                child: Text(
+                  topic,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(
                 height: 24,
               ),
-              Text(
-                description,
-                style: TextStyle(fontSize: 16),
+              Container(
+                padding: EdgeInsets.only(left: 35),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      no.toString(),
+                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Text(
+                      no.toString(),
+                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Text(
+                      "Location : " + location,
+                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Text(
+                      "Description",
+                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Text(
+                      description,
+                      style: TextStyle(fontSize: 14, color: kPrimaryColor),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: 24),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: RoundedButton(
-                  title: "Accept",
-                  btnColor: kPrimaryColor,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+              Padding(
+                padding: const EdgeInsets.only(top: 150),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: RoundedButton(
+                    title: "Accept",
+                    btnColor: kPrimaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               )
             ],

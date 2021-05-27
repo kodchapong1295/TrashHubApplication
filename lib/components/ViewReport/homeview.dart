@@ -9,12 +9,18 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final List<Trip> tripsList = [
-    Trip("Cheigmai", "This is Cheigmai", DateTime.now()),
-    Trip("Tonlor", "This is Tonlor", DateTime.now()),
-    Trip("Bangcare", "This is Cheigmai", DateTime.now()),
-    Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
-    Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
-    Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
+    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
+        "There are many Best around there."),
+    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
+        "There are many Best around there."),
+    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
+        "There are many Best around there."),
+    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
+        "There are many Best around there."),
+    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
+        "There are many Best around there."),
+    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
+        "There are many Best around there."),
   ];
 
   @override
@@ -36,8 +42,10 @@ class _HomeViewState extends State<HomeView> {
           showDialog(
               context: context,
               builder: (context) => CustomeDialog(
-                    title: "Request Details",
-                    description: trip.title,
+                    topic: "Request Details",
+                    no: "No  :" + " " + trip.no.toString(),
+                    location: trip.location,
+                    description: trip.description,
                   ));
         },
         child: Padding(
@@ -71,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               Container(
                                 child: Text(
-                                  trip.text,
+                                  trip.date.toString(),
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),

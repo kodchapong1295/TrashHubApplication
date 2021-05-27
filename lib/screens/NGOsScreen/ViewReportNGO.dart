@@ -20,7 +20,9 @@ class _ViewReportState extends State<ViewReport> {
     refreshKey.currentState?.show(atTop: false);
     await Future.delayed(Duration(seconds: 2));
 
-    setState(() {});
+    setState(() {
+      // เอาไว้ใส่ว่ารีเฟสแล้วงจะทำอะไร
+    });
 
     return null;
   }
