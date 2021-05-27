@@ -20,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
     Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
         "There are many Best around there."),
     Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
+        "There are many Best around thereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee."),
   ];
 
   @override
@@ -43,7 +43,8 @@ class _HomeViewState extends State<HomeView> {
               context: context,
               builder: (context) => CustomeDialog(
                     topic: "Request Details",
-                    no: "No  :" + " " + trip.no.toString(),
+                    no: trip.no.toString(),
+                    date: trip.date.toString().split(" ")[0],
                     location: trip.location,
                     description: trip.description,
                   ));

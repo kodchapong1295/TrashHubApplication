@@ -4,8 +4,8 @@ import 'Trip.dart';
 import 'package:trashhub/constants.dart';
 
 class CustomeDialog extends StatelessWidget {
-  final String topic, title, description, button, location;
-  final DateTime date;
+  final String topic, title, description, button, location, date;
+
   final String no;
 
   CustomeDialog(
@@ -77,14 +77,14 @@ class CustomeDialog extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      no.toString(),
+                      "No    : " + no.toString(),
                       style: TextStyle(fontSize: 16, color: kPrimaryColor),
                     ),
                     SizedBox(
                       height: 7,
                     ),
                     Text(
-                      no.toString(),
+                      "Date : " + date,
                       style: TextStyle(fontSize: 16, color: kPrimaryColor),
                     ),
                     SizedBox(
@@ -113,7 +113,7 @@ class CustomeDialog extends StatelessWidget {
               ),
               SizedBox(height: 24),
               Padding(
-                padding: const EdgeInsets.only(top: 150),
+                padding: const EdgeInsets.only(top: 120),
                 child: Align(
                   alignment: Alignment.center,
                   child: RoundedButton(
