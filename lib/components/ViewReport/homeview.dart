@@ -52,6 +52,7 @@ class _HomeViewState extends State<HomeView> {
         child: Padding(
           padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
           child: Card(
+            elevation: 10,
             child: Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Row(
@@ -80,7 +81,7 @@ class _HomeViewState extends State<HomeView> {
                               ),
                               Container(
                                 child: Text(
-                                  trip.date.toString(),
+                                  trip.date.toString().split(" ")[0],
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),

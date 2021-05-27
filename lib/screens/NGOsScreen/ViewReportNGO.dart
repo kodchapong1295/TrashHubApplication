@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:trashhub/components/ViewReport/homeview.dart';
 import 'dart:async';
 
+import 'package:trashhub/constants.dart';
+
 class ViewReport extends StatefulWidget {
   @override
   _ViewReportState createState() => _ViewReportState();
@@ -32,7 +34,21 @@ class _ViewReportState extends State<ViewReport> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: (Text('View Report')),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: kPrimaryColor,
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+        ),
+        title: (Text(
+          'View Report',
+          style: TextStyle(
+            color: kPrimaryColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        )),
         elevation: 0,
         centerTitle: true,
       ),
