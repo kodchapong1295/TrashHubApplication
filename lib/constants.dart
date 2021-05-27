@@ -12,16 +12,24 @@ InputDecoration kTextField = InputDecoration(
       width: 2.0,
     ),
   ),
+
+  enabledBorder: OutlineInputBorder(
+    borderRadius: BorderRadius.circular(5.0),
+    borderSide: BorderSide(
+      color: kPrimaryColor,
+    ),
+  ),
   errorBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(5.0),
     borderSide: BorderSide(
       color: kPrimaryColor,
     ),
   ),
-  enabledBorder: OutlineInputBorder(
+  focusedErrorBorder: OutlineInputBorder(
     borderRadius: BorderRadius.circular(5.0),
     borderSide: BorderSide(
       color: kPrimaryColor,
+      width: 2.0,
     ),
   ),
 );
