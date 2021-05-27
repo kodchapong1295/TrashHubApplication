@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/components/ViewReport/homeview.dart';
+import 'dart:async';
 
 class ViewReport extends StatefulWidget {
   @override
@@ -7,6 +8,23 @@ class ViewReport extends StatefulWidget {
 }
 
 class _ViewReportState extends State<ViewReport> {
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+  @override
+  void initState() {
+    super.initState();
+
+    refreshList();
+  }
+
+  Future<Null> refreshList() async {
+    refreshKey.currentState?.show(atTop: false);
+    await Future.delayed(Duration(seconds: 2));
+
+    setState(() {});
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +34,11 @@ class _ViewReportState extends State<ViewReport> {
         elevation: 0,
         centerTitle: true,
       ),
-      body: SafeArea(child: HomeView()),
+      body: RefreshIndicator(
+        key: refreshKey,
+        child: HomeView(),
+        onRefresh: refreshList,
+      ),
     );
   }
 }

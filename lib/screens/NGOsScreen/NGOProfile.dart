@@ -82,7 +82,7 @@ class NGOProfileScreen extends StatelessWidget {
           color: kPrimaryColor, //change your color here
         ),
         centerTitle: true,
-        title: Text('My Profile',
+        title: Text('NGO Profile',
             style: TextStyle(
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,

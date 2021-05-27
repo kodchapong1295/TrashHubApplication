@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:trashhub/components/ViewReport/CustomDialog.dart';
 import 'Trip.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   final List<Trip> tripsList = [
     Trip("Cheigmai", "This is Cheigmai", DateTime.now()),
     Trip("Tonlor", "This is Tonlor", DateTime.now()),
@@ -11,6 +16,7 @@ class HomeView extends StatelessWidget {
     Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
     Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
