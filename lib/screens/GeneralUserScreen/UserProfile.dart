@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
+import 'package:trashhub/screens/GeneralUserScreen/ViewRequest.dart';
 
 import 'UploadReportScreen.dart';
 
@@ -189,10 +190,7 @@ class UserProfileScreen extends StatelessWidget {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (context) => CustomeDialog(
-                                title: "Request Details",
-                                description: 'test',
-                              ));
+                          builder: (context) => ViewRequest());
                     },
                     icon: Icon(Icons.info_outline),
                     label: Text('See More')),
