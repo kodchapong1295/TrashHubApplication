@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trashhub/components/DialogShowStatus.dart';
 import 'package:trashhub/components/ViewReport/CustomDialog.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
@@ -43,7 +44,10 @@ final List<Widget> imageSliders = imgList
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              Color.fromARGB(200, 0, 0, 0),
+                              Color.fromARGB(200, 255, 25, 0),
+
+                              // Color.fromARGB(200, 50, 205, 50),
+                              // Color.fromARGB(200, 255, 165, 0),
                               Color.fromARGB(0, 0, 0, 0)
                             ],
                             begin: Alignment.bottomCenter,
@@ -52,13 +56,32 @@ final List<Widget> imageSliders = imgList
                         ),
                         padding: EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          'No. ${imgList.indexOf(item)} image',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.hourglass_empty,
+                              color: Colors.white,
+                              size: 20.0,
+                            ),
+                            Icon(
+                              Icons.flag_outlined,
+                              color: Colors.white,
+                              size: 20.0,
+                            ),
+                            Icon(
+                              Icons.check,
+                              color: Colors.white,
+                              size: 20.0,
+                            ),
+                            Text(
+                              'No. ${imgList.indexOf(item)} image',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -98,7 +121,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           color: kPrimaryColor, //change your color here
         ),
         centerTitle: true,
-        title: Text('My Profile',
+        title: Text('Home',
             style: TextStyle(
               color: kPrimaryColor,
               fontWeight: FontWeight.bold,
@@ -129,7 +152,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         Expanded(
                           flex: 3,
                           child: Container(
-                            child: Image.network(result.imgUrl),
+                            child: CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: NetworkImage(result.imgUrl),
+                              backgroundColor: Colors.transparent,
+                            ),
                             width: 70,
                             height: 70,
                           ),
@@ -245,7 +272,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (context) => ViewRequest());
+                          builder: (context) => DialogShowStatus(
+                                topic: "Request Details",
+                                no: "1",
+                                date: "05/05/2021",
+                                status: "On-going",
+                                location: "BangCare",
+                                description: "trip.description",
+                              ));
                     },
                     icon: Icon(Icons.info_outline),
                     label: Text('See More')),

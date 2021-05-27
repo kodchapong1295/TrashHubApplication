@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trashhub/components/DialogShowStatus.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -199,7 +200,18 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                         textStyle: TextStyle(
                           fontSize: 18,
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => DialogShowStatus(
+                                topic: "Request Details",
+                                no: "1",
+                                date: "05/05/2021",
+                                status: "On-going",
+                                location: "BangCare",
+                                description: "trip.description",
+                              ));
+                    },
                     icon: Icon(Icons.info_outline),
                     label: Text('See More')),
               ),
