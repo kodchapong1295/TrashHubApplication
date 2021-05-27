@@ -5,14 +5,6 @@ import 'package:trashhub/constants.dart';
 
 class CustomeDialog extends StatelessWidget {
   final String title, description, button;
-  final List<Trip> tripsList = [
-    Trip("Cheigmai", "This is Cheigmai", DateTime.now()),
-    Trip("Tonlor", "This is Tonlor", DateTime.now()),
-    Trip("Bangcare", "This is Cheigmai", DateTime.now()),
-    Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
-    Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
-    Trip("Ratchapreuk", "This is Cheigmai", DateTime.now()),
-  ];
 
   CustomeDialog({this.title, this.description, this.button});
   @override

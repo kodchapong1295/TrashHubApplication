@@ -37,8 +37,7 @@ class _HomeViewState extends State<HomeView> {
               context: context,
               builder: (context) => CustomeDialog(
                     title: "Request Details",
-                    description:
-                        "awdujhoasidosajldsamnjdhbsaudlinsakjdnsadaisdoijsaklmdasdasod;noklsadsad asd lasidkj as;ld kawld ksa;dl asd asd ;li",
+                    description: trip.title,
                   ));
         },
         child: Padding(
