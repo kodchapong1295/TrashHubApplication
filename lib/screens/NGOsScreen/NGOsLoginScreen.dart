@@ -7,9 +7,15 @@ import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:provider/provider.dart';
 
-class NGOsLoginScreen extends StatelessWidget {
-  String email;
-  String password;
+class NGOsLoginScreen extends StatefulWidget {
+  @override
+  _NGOsLoginScreenState createState() => _NGOsLoginScreenState();
+}
+
+class _NGOsLoginScreenState extends State<NGOsLoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,21 +55,38 @@ class NGOsLoginScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextFormField(
-                        onChanged: (email) => {this.email = email},
-                        decoration: kTextField.copyWith(hintText: 'Email'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (password) => {this.password = password},
-                        decoration: kTextField.copyWith(hintText: 'Password'),
-                      ),
-                    ],
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: email,
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Text is empty';
+                            }
+                            return null;
+                          },
+                          decoration: kTextField.copyWith(hintText: 'Email'),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          controller: password,
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Text is empty';
+                            }
+                            return null;
+                          },
+                          decoration: kTextField.copyWith(hintText: 'Password'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -75,11 +98,13 @@ class NGOsLoginScreen extends StatelessWidget {
                         title: "LOG IN",
                         btnColor: kPrimaryColor,
                         textColor: Colors.white,
-                        onPressed: () {
-                          context.read<FlutterFireAuthService>().signIn(
-                              email: email,
-                              password: password,
-                              context: context);
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            await context.read<FlutterFireAuthService>().signIn(
+                                email: email.text,
+                                password: password.text,
+                                context: context);
+                          }
                         },
                       ),
                       TextButton(

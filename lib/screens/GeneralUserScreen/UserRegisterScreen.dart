@@ -113,66 +113,39 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
+                        TextInputBox(
                           controller: firstname,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration:
-                              kTextField.copyWith(hintText: 'Firstname'),
+                          title: "Firstname",
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
+                        TextInputBox(
                           controller: lastname,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration: kTextField.copyWith(hintText: 'Lastname'),
+                          title: "Lastname",
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
+                        TextInputBox(
                           controller: email,
-
-                          // onChanged: (email) => {this.email = email},
-                          decoration: kTextField.copyWith(hintText: 'Email'),
-                          keyboardType: TextInputType.emailAddress,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
+                          title: "Email",
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
+                        TextInputBox(
                           controller: password,
+                          title: "Password",
                           obscureText: true,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration: kTextField.copyWith(hintText: 'Password'),
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
-                          obscureText: true,
+                        TextInputBox(
                           controller: confirmpass,
+                          obscureText: true,
+                          title: "Confirm password",
                           validator: (text) {
                             if (text == null || text.isEmpty)
                               return 'Text is empty';
@@ -180,8 +153,6 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                               return 'Password did not match';
                             return null;
                           },
-                          decoration:
-                              kTextField.copyWith(hintText: 'Confirm Password'),
                         ),
                       ],
                     ),
@@ -198,10 +169,16 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                         textColor: Colors.white,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            final imgUrl = await context
-                                .read<FlutterFireAuthService>()
-                                .uploadImageToFirebase(_image);
-                            this.imgUrl = imgUrl;
+                            if (_image != null) {
+                              final imgUrl = await context
+                                  .read<FlutterFireAuthService>()
+                                  .uploadImageToFirebase(_image);
+                              this.imgUrl = imgUrl;
+                            } else {
+                              this.imgUrl =
+                                  "https://th.jobsdb.com/en-th/cms/employer/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png";
+                            }
+
                             await context
                                 .read<FlutterFireAuthService>()
                                 .signUpUser(
@@ -222,6 +199,38 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TextInputBox extends StatelessWidget {
+  const TextInputBox(
+      {Key key,
+      @required this.controller,
+      @required this.title,
+      this.obscureText,
+      this.validator})
+      : super(key: key);
+
+  final TextEditingController controller;
+  final String title;
+  final bool obscureText;
+  final Function validator;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: obscureText == null ? false : obscureText,
+      controller: controller,
+      validator: validator == null
+          ? (text) {
+              if (text == null || text.isEmpty) {
+                return 'Text is empty';
+              }
+              return null;
+            }
+          : validator,
+      decoration: kTextField.copyWith(hintText: title),
     );
   }
 }
