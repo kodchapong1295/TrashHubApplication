@@ -19,6 +19,12 @@ class FlutterFireAuthService {
     return userId;
   }
 
+  Future<bool> isUser() async {
+    DocumentSnapshot snapshot =
+        await _firestore.collection('general_user').doc(_getUserId()).get();
+    return snapshot.data() != null;
+  }
+
   Future<GeneralUser> getGeneralUserInfo() async {
     GeneralUser userInfo;
     dynamic snapshot = await _firestore
@@ -46,14 +52,19 @@ class FlutterFireAuthService {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       print("Signed In");
-
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => UserProfileScreen(),
-        ),
-      );
-      return "Success";
+      if (await isUser()) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UserProfileScreen(),
+          ),
+        );
+        return "Success";
+      } else {
+        print('No user account');
+        signOut();
+        return "Invalid account";
+      }
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       return e.message;

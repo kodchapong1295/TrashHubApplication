@@ -95,11 +95,10 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                                     email: email.text,
                                     password: password.text,
                                     context: context);
-                            // final userInfo = await context
-                            //     .read<FlutterFireAuthService>()
-                            //     .getGeneralUserInfo(
-                            //         "bO4fYXFJhSY5I93O2CrVSdzW9re2");
-                            // print(userInfo);
+                            final state = await context
+                                .read<FlutterFireAuthService>()
+                                .isUser();
+                            print(state);
                           }
                         },
                       ),
