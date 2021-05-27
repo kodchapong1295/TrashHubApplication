@@ -15,10 +15,12 @@ class UserRegisterScreen extends StatefulWidget {
 }
 
 class _UserRegisterScreenState extends State<UserRegisterScreen> {
-  String email;
-  String password;
-  String firstname;
-  String lastname;
+  final _formKey = GlobalKey<FormState>();
+
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController firstname = TextEditingController();
+  TextEditingController lastname = TextEditingController();
   File _image;
   final picker = ImagePicker();
   String imgUrl;
@@ -73,75 +75,106 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      _image == null
-                          ? Container(
-                              width: 100,
-                              height: 100,
-                              child: MaterialButton(
-                                onPressed: getImage,
-                                color: kPrimaryColor,
-                                textColor: Colors.white,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  size: 40,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        _image == null
+                            ? Container(
+                                width: 100,
+                                height: 100,
+                                child: MaterialButton(
+                                  onPressed: getImage,
+                                  color: kPrimaryColor,
+                                  textColor: Colors.white,
+                                  child: Icon(
+                                    Icons.camera_alt,
+                                    size: 40,
+                                  ),
+                                  padding: EdgeInsets.all(16),
+                                  shape: CircleBorder(),
                                 ),
-                                padding: EdgeInsets.all(16),
-                                shape: CircleBorder(),
+                              )
+                            : Container(
+                                width: 100.0,
+                                height: 100.0,
+                                child: MaterialButton(
+                                  onPressed: getImage,
+                                  shape: CircleBorder(),
+                                ),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: FileImage(_image))),
                               ),
-                            )
-                          : Container(
-                              width: 100.0,
-                              height: 100.0,
-                              child: MaterialButton(
-                                onPressed: getImage,
-                                shape: CircleBorder(),
-                              ),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: FileImage(_image))),
-                            ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (fn) => {this.firstname = fn},
-                        decoration: kTextField.copyWith(hintText: 'Firstname'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (ln) => {this.lastname = ln},
-                        decoration: kTextField.copyWith(hintText: 'Lastname'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (email) => {this.email = email},
-                        decoration: kTextField.copyWith(hintText: 'Email'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (password) => {this.password = password},
-                        decoration: kTextField.copyWith(hintText: 'Password'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        // onChanged: (password) => {this.password = password},
-                        decoration:
-                            kTextField.copyWith(hintText: 'Confirm Password'),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: firstname,
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Text is empty';
+                            }
+                            return null;
+                          },
+                          decoration:
+                              kTextField.copyWith(hintText: 'Firstname'),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: lastname,
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Text is empty';
+                            }
+                            return null;
+                          },
+                          decoration: kTextField.copyWith(hintText: 'Lastname'),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: email,
+
+                          // onChanged: (email) => {this.email = email},
+                          decoration: kTextField.copyWith(hintText: 'Email'),
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Text is empty';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: password,
+                          validator: (text) {
+                            if (text == null || text.isEmpty) {
+                              return 'Text is empty';
+                            }
+                            return null;
+                          },
+                          decoration: kTextField.copyWith(hintText: 'Password'),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          // controller: ,
+                          decoration:
+                              kTextField.copyWith(hintText: 'Confirm Password'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -154,19 +187,21 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                         btnColor: kPrimaryColor,
                         textColor: Colors.white,
                         onPressed: () async {
-                          final imgUrl = await context
-                              .read<FlutterFireAuthService>()
-                              .uploadImageToFirebase(_image);
-                          this.imgUrl = imgUrl;
-                          await context
-                              .read<FlutterFireAuthService>()
-                              .signUpUser(
-                                  email: email,
-                                  password: password,
-                                  firstname: firstname,
-                                  lastname: lastname,
-                                  imgUrl: imgUrl,
-                                  context: context);
+                          if (_formKey.currentState.validate()) {
+                            final imgUrl = await context
+                                .read<FlutterFireAuthService>()
+                                .uploadImageToFirebase(_image);
+                            this.imgUrl = imgUrl;
+                            await context
+                                .read<FlutterFireAuthService>()
+                                .signUpUser(
+                                    email: email.text,
+                                    password: password.text,
+                                    firstname: firstname.text,
+                                    lastname: lastname.text,
+                                    imgUrl: imgUrl,
+                                    context: context);
+                          }
                         },
                       ),
                     ],
