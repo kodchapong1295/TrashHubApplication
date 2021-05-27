@@ -71,8 +71,8 @@ class UserLoginScreen extends StatelessWidget {
                       title: "LOG IN",
                       btnColor: kPrimaryColor,
                       textColor: Colors.white,
-                      onPressed: () {
-                        context.read<FlutterFireAuthService>().signIn(
+                      onPressed: () async {
+                        await context.read<FlutterFireAuthService>().signIn(
                             email: email, password: password, context: context);
                       },
                     ),
