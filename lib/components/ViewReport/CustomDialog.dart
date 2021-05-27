@@ -112,15 +112,17 @@ class CustomeDialog extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 110),
-              Align(
-                alignment: Alignment.center,
-                child: RoundedButton(
-                  title: "Accept",
-                  btnColor: kPrimaryColor,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
+              Center(
+                child: Container(
+                  width: 200,
+                  child: RoundedButton(
+                    title: "Accept",
+                    btnColor: kPrimaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                 ),
               ),
             ],
