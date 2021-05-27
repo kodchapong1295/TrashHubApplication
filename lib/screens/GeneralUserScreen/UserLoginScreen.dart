@@ -60,30 +60,17 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
+                        TextInputBox(
                           controller: email,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration: kTextField.copyWith(hintText: 'Email'),
+                          title: "Email",
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
-                          obscureText: true,
+                        TextInputBox(
                           controller: password,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration: kTextField.copyWith(hintText: 'Password'),
+                          title: "Password",
+                          obscureText: true,
                         ),
                       ],
                     ),
@@ -100,10 +87,12 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         textColor: Colors.white,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            await context.read<FlutterFireAuthService>().signIn(
-                                email: email.text,
-                                password: password.text,
-                                context: context);
+                            await context
+                                .read<FlutterFireAuthService>()
+                                .signInUser(
+                                    email: email.text,
+                                    password: password.text,
+                                    context: context);
                           }
                         },
                       ),

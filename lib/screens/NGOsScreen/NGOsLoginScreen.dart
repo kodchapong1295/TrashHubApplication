@@ -4,6 +4,7 @@ import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsRegisterScreen.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
+import 'package:trashhub/components/TextInputBox.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:provider/provider.dart';
 
@@ -60,30 +61,17 @@ class _NGOsLoginScreenState extends State<NGOsLoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
+                        TextInputBox(
                           controller: email,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration: kTextField.copyWith(hintText: 'Email'),
+                          title: "Email",
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextFormField(
-                          obscureText: true,
+                        TextInputBox(
                           controller: password,
-                          validator: (text) {
-                            if (text == null || text.isEmpty) {
-                              return 'Text is empty';
-                            }
-                            return null;
-                          },
-                          decoration: kTextField.copyWith(hintText: 'Password'),
+                          title: "Password",
+                          obscureText: true,
                         ),
                       ],
                     ),
@@ -100,10 +88,12 @@ class _NGOsLoginScreenState extends State<NGOsLoginScreen> {
                         textColor: Colors.white,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            await context.read<FlutterFireAuthService>().signIn(
-                                email: email.text,
-                                password: password.text,
-                                context: context);
+                            await context
+                                .read<FlutterFireAuthService>()
+                                .signInNGOs(
+                                    email: email.text,
+                                    password: password.text,
+                                    context: context);
                           }
                         },
                       ),

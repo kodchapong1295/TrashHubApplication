@@ -3,14 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
+import 'package:trashhub/components/TextInputBox.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:provider/provider.dart';
 
-class NGOsRegisterScreen extends StatelessWidget {
-  String email;
-  String password;
-  String orgName;
-  String size;
+class NGOsRegisterScreen extends StatefulWidget {
+  @override
+  _NGOsRegisterScreenState createState() => _NGOsRegisterScreenState();
+}
+
+class _NGOsRegisterScreenState extends State<NGOsRegisterScreen> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmpass = TextEditingController();
+  TextEditingController orgName = TextEditingController();
+  TextEditingController size = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,45 +58,53 @@ class NGOsRegisterScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      TextFormField(
-                        onChanged: (orgname) => {this.orgName = orgname},
-                        decoration:
-                            kTextField.copyWith(hintText: 'Organization Name'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (size) => {this.size = size},
-                        decoration: kTextField.copyWith(
-                            hintText: 'Size of organization'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (email) => {this.email = email},
-                        decoration: kTextField.copyWith(hintText: 'Email'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        onChanged: (password) => {this.password = password},
-                        decoration: kTextField.copyWith(hintText: 'Password'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        // onChanged: (password) => {this.password = password},
-                        decoration:
-                            kTextField.copyWith(hintText: 'Confirm Password'),
-                      ),
-                    ],
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TextInputBox(
+                          controller: orgName,
+                          title: "Organization Name",
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextInputBox(
+                          controller: size,
+                          title: "Size of organization",
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextInputBox(
+                          controller: email,
+                          title: "Email",
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextInputBox(
+                          controller: password,
+                          title: "Password",
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextInputBox(
+                          controller: confirmpass,
+                          obscureText: true,
+                          title: "Confirm password",
+                          validator: (text) {
+                            if (text == null || text.isEmpty)
+                              return 'Text is empty';
+                            if (text != password.text)
+                              return 'Password did not match';
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -100,13 +116,17 @@ class NGOsRegisterScreen extends StatelessWidget {
                         title: "REGISTER",
                         btnColor: kPrimaryColor,
                         textColor: Colors.white,
-                        onPressed: () {
-                          context.read<FlutterFireAuthService>().signUpNGOs(
-                              email: email,
-                              password: password,
-                              orgname: orgName,
-                              size: size,
-                              context: context);
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            await context
+                                .read<FlutterFireAuthService>()
+                                .signUpNGOs(
+                                    email: email.text,
+                                    password: password.text,
+                                    orgname: orgName.text,
+                                    size: size.text,
+                                    context: context);
+                          }
                         },
                       ),
                     ],

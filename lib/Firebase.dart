@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
+import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -21,7 +22,7 @@ class FlutterFireAuthService {
     await _firebaseAuth.signOut();
   }
 
-  Future<String> signIn(
+  Future<String> signInUser(
       {String email, String password, BuildContext context}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
@@ -31,6 +32,25 @@ class FlutterFireAuthService {
         context,
         MaterialPageRoute(
           builder: (context) => UserProfileScreen(),
+        ),
+      );
+      return "Success";
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return e.message;
+    }
+  }
+
+  Future<String> signInNGOs(
+      {String email, String password, BuildContext context}) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      print("Signed In");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NGOProfileScreen(),
         ),
       );
       return "Success";
@@ -90,7 +110,7 @@ class FlutterFireAuthService {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => UserProfileScreen(),
+          builder: (context) => NGOProfileScreen(),
         ),
       );
       return "Success";
