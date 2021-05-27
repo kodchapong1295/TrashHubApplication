@@ -13,6 +13,7 @@ class UserLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(

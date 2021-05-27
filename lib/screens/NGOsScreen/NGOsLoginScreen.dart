@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
+import 'package:trashhub/screens/NGOsScreen/NGOsRegisterScreen.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/Firebase.dart';
@@ -13,6 +14,7 @@ class NGOsLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
@@ -82,12 +84,16 @@ class NGOsLoginScreen extends StatelessWidget {
                       ),
                       TextButton(
                         child: Text(
-                          'Forget Password',
+                          'Register as NGOs',
                           style: Theme.of(context).textTheme.bodyText1,
                           textAlign: TextAlign.center,
                         ),
                         onPressed: () {
-                          print('Forgot Password');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NGOsRegisterScreen()),
+                          );
                         },
                       ),
                     ],

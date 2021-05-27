@@ -95,20 +95,6 @@ class AuthenMenu extends StatelessWidget {
                     ),
                     TextButton(
                       child: Text(
-                        'Register as NGOs',
-                        style: Theme.of(context).textTheme.bodyText1,
-                        textAlign: TextAlign.center,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NGOsRegisterScreen()),
-                        );
-                      },
-                    ),
-                    TextButton(
-                      child: Text(
                         'View report for NGO do not enter!',
                         style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.center,
