@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:trashhub/models/GeneralUser.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
+import 'package:trashhub/models/GeneralUser.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -17,6 +19,22 @@ class FlutterFireAuthService {
     return userId;
   }
 
+  Future<GeneralUser> getGeneralUserInfo() async {
+    GeneralUser userInfo;
+    dynamic snapshot = await _firestore
+        .collection('general_user')
+        .doc(_getUserId())
+        .get()
+        .then((value) {
+      userInfo = GeneralUser(
+          firstname: value.data()['firstname'],
+          lastname: value.data()['lastname'],
+          totalReport: value.data()['totalReport'],
+          imgUrl: value.data()['imgUrl']);
+    });
+    return userInfo;
+  }
+
   //Authen Functions
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
@@ -28,6 +46,7 @@ class FlutterFireAuthService {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       print("Signed In");
+
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -70,14 +89,15 @@ class FlutterFireAuthService {
     try {
       UserCredential authResult = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      User newUser = authResult.user;
-      await _firestore.collection('general_user').doc(newUser.uid).set({
-        'id': newUser.uid,
-        'firstname': firstname,
-        'lastname': lastname,
-        'email': email,
-        'imgUrl': imgUrl,
-      });
+      // User newUser = authResult.user;
+      // await _firestore.collection('general_user').doc(newUser.uid).set({
+      //   'id': newUser.uid,
+      //   'firstname': firstname,
+      //   'lastname': lastname,
+      //   'email': email,
+      //   'imgUrl': imgUrl,
+      //   'totalReport': 0,
+      // });
       Navigator.push(
         context,
         MaterialPageRoute(

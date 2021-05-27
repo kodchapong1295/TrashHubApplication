@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trashhub/models/GeneralUser.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/components/RoundedButton.dart';
@@ -16,6 +17,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  GeneralUser userInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +95,11 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                                     email: email.text,
                                     password: password.text,
                                     context: context);
+                            // final userInfo = await context
+                            //     .read<FlutterFireAuthService>()
+                            //     .getGeneralUserInfo(
+                            //         "bO4fYXFJhSY5I93O2CrVSdzW9re2");
+                            // print(userInfo);
                           }
                         },
                       ),

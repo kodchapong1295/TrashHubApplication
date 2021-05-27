@@ -4,6 +4,7 @@ import 'package:trashhub/components/ViewReport/CustomDialog.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:trashhub/models/GeneralUser.dart';
 
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
@@ -66,7 +67,19 @@ final List<Widget> imageSliders = imgList
         ))
     .toList();
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
+  @override
+  _UserProfileScreenState createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  Future userInfo;
+  @override
+  void initState() {
+    userInfo = (context).read<FlutterFireAuthService>().getGeneralUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +113,49 @@ class UserProfileScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width,
-                child: ProfileInfo(),
+                child: FutureBuilder(
+                    future: userInfo,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      final result = snapshot.data;
+                      print(result.totalReport);
+                      return Row(children: [
+                        //
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Image.network(result.imgUrl),
+                            width: 70,
+                            height: 70,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 7,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${result.firstname} ${result.lastname}',
+                                style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: 24,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text('Total report : ${(result.totalReport)}',
+                                  style: TextStyle(
+                                      color: kPrimaryColor, fontSize: 18))
+                            ],
+                          ),
+                        )
+                      ]);
+                    }),
               ),
 
               SizedBox(
@@ -207,46 +262,12 @@ class UserProfileScreen extends StatelessWidget {
   }
 }
 
-class ProfileInfo extends StatelessWidget {
-  const ProfileInfo({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(children: [
-      //
-      Expanded(
-        flex: 3,
-        child: Container(
-          child: Image.asset('images/userIcon.png'),
-          width: 70,
-          height: 70,
-        ),
-      ),
-      Expanded(
-        flex: 7,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Yosathorn Penga',
-              style: TextStyle(
-                color: kPrimaryColor,
-                fontSize: 24,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text('Total report : 5',
-                style: TextStyle(color: kPrimaryColor, fontSize: 18))
-          ],
-        ),
-      )
-    ]);
-  }
-}
+// class ProfileInfo extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return
+//   }
+// }
 
 class ButtomButton extends StatelessWidget {
   const ButtomButton({
