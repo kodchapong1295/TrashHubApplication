@@ -76,30 +76,75 @@ class CustomeDialog extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "No    : " + no.toString(),
-                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                    Row(
+                      children: [
+                        Text(
+                          "No    : ",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: kPrimaryColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          no.toString(),
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: kPrimaryColor,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Date : ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          date,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: kPrimaryColor,
+                          ),
+                        )
+                      ],
                     ),
                     SizedBox(
                       height: 7,
                     ),
                     Text(
-                      "Date : " + date,
-                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                      "Location : ",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 7,
                     ),
                     Text(
-                      "Location : " + location,
-                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                      location,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: kPrimaryColor,
+                      ),
                     ),
                     SizedBox(
                       height: 7,
                     ),
                     Text(
                       "Description :",
-                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
                       height: 7,
