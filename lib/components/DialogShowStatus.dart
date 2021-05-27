@@ -119,6 +119,28 @@ class DialogShowStatus extends StatelessWidget {
                     SizedBox(
                       height: 7,
                     ),
+                    Row(
+                      children: [
+                        Text(
+                          "Status : ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          status,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: kPrimaryColor,
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
                     Text(
                       "Location : ",
                       style: TextStyle(
