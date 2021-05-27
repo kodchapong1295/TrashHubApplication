@@ -19,6 +19,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
 
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController confirmpass = TextEditingController();
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   File _image;
@@ -157,6 +158,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                         ),
                         TextFormField(
                           controller: password,
+                          obscureText: true,
                           validator: (text) {
                             if (text == null || text.isEmpty) {
                               return 'Text is empty';
@@ -169,7 +171,15 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                           height: 20,
                         ),
                         TextFormField(
-                          // controller: ,
+                          obscureText: true,
+                          controller: confirmpass,
+                          validator: (text) {
+                            if (text == null || text.isEmpty)
+                              return 'Text is empty';
+                            if (text != password.text)
+                              return 'Password did not match';
+                            return null;
+                          },
                           decoration:
                               kTextField.copyWith(hintText: 'Confirm Password'),
                         ),
