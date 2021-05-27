@@ -25,9 +25,7 @@ class CustomeDialog extends StatelessWidget {
     );
   }
 
-  dialogContent(
-    BuildContext context,
-  ) {
+  Widget dialogContent(BuildContext context) {
     return Stack(
       children: <Widget>[
         Container(

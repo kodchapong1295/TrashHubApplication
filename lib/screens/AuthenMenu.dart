@@ -3,6 +3,7 @@ import 'package:trashhub/constants.dart';
 
 import 'package:trashhub/screens/GeneralUserScreen/UserLoginScreen.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserRegisterScreen.dart';
+import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsLoginScreen.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsRegisterScreen.dart';
 
@@ -115,7 +116,8 @@ class AuthenMenu extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ViewReport()),
+                          MaterialPageRoute(
+                              builder: (context) => NGOProfileScreen()),
                         );
                       },
                     ),
