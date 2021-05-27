@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:trashhub/components/ViewReport/homeview.dart';
 import 'dart:async';
 
 import 'package:trashhub/constants.dart';
+import 'package:trashhub/screens/GeneralUserScreen/HomeViewUser.dart';
 
-class ViewReport extends StatefulWidget {
+class ViewRequest extends StatefulWidget {
   @override
-  _ViewReportState createState() => _ViewReportState();
+  _ViewRequestState createState() => _ViewRequestState();
 }
 
-class _ViewReportState extends State<ViewReport> {
+class _ViewRequestState extends State<ViewRequest> {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   @override
   void initState() {
@@ -54,7 +54,7 @@ class _ViewReportState extends State<ViewReport> {
       ),
       body: RefreshIndicator(
         key: refreshKey,
-        child: HomeView(),
+        child: HomeViewUser(),
         onRefresh: refreshList,
       ),
     );

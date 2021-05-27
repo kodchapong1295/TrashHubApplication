@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/components/ViewReport/CustomDialog.dart';
-import 'Trip.dart';
+import 'package:trashhub/components/ViewReport/Trip.dart';
 
-class HomeView extends StatefulWidget {
+class HomeViewUser extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _HomeViewUserState createState() => _HomeViewUserState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewUserState extends State<HomeViewUser> {
   final List<Trip> tripsList = [
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around thereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee."),
+    Trip(7779, "God Nut", DateTime.now(), "God Nut Home",
+        "There are many Nut around there."),
+    Trip(7779, "God Nut", DateTime.now(), "God Nut Home",
+        "There are many Nut around there."),
+    Trip(7779, "God Nut", DateTime.now(), "God Nut Home",
+        "There are many Nut around there."),
   ];
 
   @override

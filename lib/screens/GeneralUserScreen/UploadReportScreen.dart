@@ -42,6 +42,13 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
         iconTheme: IconThemeData(
           color: kPrimaryColor, //change your color here
         ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: kPrimaryColor,
+          onPressed: () {
+            Navigator.of(context).pop(context);
+          },
+        ),
         centerTitle: true,
         title: Text('Upload Image',
             style: TextStyle(

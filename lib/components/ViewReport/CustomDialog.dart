@@ -33,7 +33,7 @@ class CustomeDialog extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
-          height: height * .7,
+          height: height * .6,
           padding: EdgeInsets.only(
             top: 35,
             bottom: 16,
@@ -98,7 +98,7 @@ class CustomeDialog extends StatelessWidget {
                       height: 7,
                     ),
                     Text(
-                      "Description",
+                      "Description :",
                       style: TextStyle(fontSize: 16, color: kPrimaryColor),
                     ),
                     SizedBox(
@@ -106,26 +106,23 @@ class CustomeDialog extends StatelessWidget {
                     ),
                     Text(
                       description,
-                      style: TextStyle(fontSize: 14, color: kPrimaryColor),
+                      style: TextStyle(fontSize: 16, color: kPrimaryColor),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.only(top: 120),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: RoundedButton(
-                    title: "Accept",
-                    btnColor: kPrimaryColor,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+              SizedBox(height: 110),
+              Align(
+                alignment: Alignment.center,
+                child: RoundedButton(
+                  title: "Accept",
+                  btnColor: kPrimaryColor,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
-              )
+              ),
             ],
           ),
         ),

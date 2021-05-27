@@ -130,7 +130,7 @@ class NGOProfileScreen extends StatelessWidget {
                 height: 10,
               ),
               Container(
-                margin: EdgeInsets.only(top: 2),
+                margin: EdgeInsets.only(top: 30),
                 width: MediaQuery.of(context).size.width * 0.41,
                 height: 45,
                 child: TextButton.icon(

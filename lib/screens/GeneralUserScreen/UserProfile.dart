@@ -8,6 +8,7 @@ import 'package:trashhub/models/GeneralUser.dart';
 
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
+import 'package:trashhub/screens/GeneralUserScreen/ViewRequest.dart';
 
 import 'UploadReportScreen.dart';
 
@@ -244,10 +245,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     onPressed: () {
                       showDialog(
                           context: context,
-                          builder: (context) => CustomeDialog(
-                                title: "Request Details",
-                                description: 'test',
-                              ));
+                          builder: (context) => ViewRequest());
                     },
                     icon: Icon(Icons.info_outline),
                     label: Text('See More')),

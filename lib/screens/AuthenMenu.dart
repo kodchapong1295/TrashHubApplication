@@ -95,7 +95,7 @@ class AuthenMenu extends StatelessWidget {
                     ),
                     TextButton(
                       child: Text(
-                        'View report for NGO do not enter!',
+                        'Do not press it !!!!',
                         style: Theme.of(context).textTheme.bodyText1,
                         textAlign: TextAlign.center,
                       ),
