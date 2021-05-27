@@ -6,6 +6,7 @@ import 'package:trashhub/models/GeneralUser.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 import 'package:trashhub/models/GeneralUser.dart';
+import 'package:trashhub/models/NGO.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -25,6 +26,12 @@ class FlutterFireAuthService {
     return snapshot.data() != null;
   }
 
+  Future<bool> isNGO() async {
+    DocumentSnapshot snapshot =
+        await _firestore.collection('ngo').doc(_getUserId()).get();
+    return snapshot.data() != null;
+  }
+
   Future<GeneralUser> getGeneralUserInfo() async {
     GeneralUser userInfo;
     dynamic snapshot = await _firestore
@@ -39,6 +46,24 @@ class FlutterFireAuthService {
           imgUrl: value.data()['imgUrl']);
     });
     return userInfo;
+  }
+
+  Future<NGO> getNGOInfo() async {
+    NGO ngo;
+    dynamic snapshot = await _firestore
+        .collection('general_user')
+        .doc(_getUserId())
+        .get()
+        .then((value) {
+      ngo = NGO(
+        orgName: value.data()['orgName'],
+        size: value.data()['size'],
+        completeTask: value.data()['completeTask'],
+        imgUrl: value.data()['imgUrl'],
+        remainingTask: value.data()['remainingTask'],
+      );
+    });
+    return ngo;
   }
 
   //Authen Functions
@@ -77,13 +102,19 @@ class FlutterFireAuthService {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
       print("Signed In");
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NGOProfileScreen(),
-        ),
-      );
-      return "Success";
+      if (await isNGO()) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NGOProfileScreen(),
+          ),
+        );
+        return "Success";
+      } else {
+        print("NOT NGO");
+        signOut();
+        return "Invalid Account";
+      }
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       return e.message;
@@ -100,15 +131,15 @@ class FlutterFireAuthService {
     try {
       UserCredential authResult = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      // User newUser = authResult.user;
-      // await _firestore.collection('general_user').doc(newUser.uid).set({
-      //   'id': newUser.uid,
-      //   'firstname': firstname,
-      //   'lastname': lastname,
-      //   'email': email,
-      //   'imgUrl': imgUrl,
-      //   'totalReport': 0,
-      // });
+      User newUser = authResult.user;
+      await _firestore.collection('general_user').doc(newUser.uid).set({
+        'id': newUser.uid,
+        'firstname': firstname,
+        'lastname': lastname,
+        'email': email,
+        'imgUrl': imgUrl,
+        'totalReport': 0,
+      });
       Navigator.push(
         context,
         MaterialPageRoute(
