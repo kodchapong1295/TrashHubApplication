@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/constants.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/components/TextInputBox.dart';
 import 'package:trashhub/Firebase.dart';
@@ -19,6 +21,21 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen> {
   TextEditingController confirmpass = TextEditingController();
   TextEditingController orgName = TextEditingController();
   TextEditingController size = TextEditingController();
+  File _image;
+  final picker = ImagePicker();
+  String imgUrl;
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +80,38 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
+                        _image == null
+                            ? Container(
+                                width: 100,
+                                height: 100,
+                                child: MaterialButton(
+                                  onPressed: getImage,
+                                  color: kPrimaryColor,
+                                  textColor: Colors.white,
+                                  child: Icon(
+                                    Icons.camera_alt,
+                                    size: 40,
+                                  ),
+                                  padding: EdgeInsets.all(16),
+                                  shape: CircleBorder(),
+                                ),
+                              )
+                            : Container(
+                                width: 100.0,
+                                height: 100.0,
+                                child: MaterialButton(
+                                  onPressed: getImage,
+                                  shape: CircleBorder(),
+                                ),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: FileImage(_image))),
+                              ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         TextInputBox(
                           controller: orgName,
                           title: "Organization Name",
@@ -118,6 +167,16 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen> {
                         textColor: Colors.white,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
+                            if (_image != null) {
+                              final imgUrl = await context
+                                  .read<FlutterFireAuthService>()
+                                  .uploadImageToFirebase(_image);
+                              this.imgUrl = imgUrl;
+                            } else {
+                              this.imgUrl =
+                                  "https://th.jobsdb.com/en-th/cms/employer/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png";
+                            }
+
                             await context
                                 .read<FlutterFireAuthService>()
                                 .signUpNGOs(
@@ -125,6 +184,7 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen> {
                                     password: password.text,
                                     orgname: orgName.text,
                                     size: size.text,
+                                    imgUrl: imgUrl,
                                     context: context);
                           }
                         },

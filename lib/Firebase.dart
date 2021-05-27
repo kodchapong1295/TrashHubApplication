@@ -96,6 +96,7 @@ class FlutterFireAuthService {
       String password,
       String orgname,
       String size,
+      String imgUrl,
       BuildContext context}) async {
     try {
       UserCredential authResult = await _firebaseAuth
@@ -106,6 +107,7 @@ class FlutterFireAuthService {
         'orgName': orgname,
         'size': size,
         'email': email,
+        'imgUrl': imgUrl,
       });
       Navigator.push(
         context,
