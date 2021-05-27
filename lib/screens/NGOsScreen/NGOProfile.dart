@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import 'package:trashhub/models/NGO.dart';
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/screens/NGOsScreen/ViewReportNGO.dart';
@@ -64,7 +64,20 @@ final List<Widget> imageSliders = imgList
         ))
     .toList();
 
-class NGOProfileScreen extends StatelessWidget {
+class NGOProfileScreen extends StatefulWidget {
+  @override
+  _NGOProfileScreenState createState() => _NGOProfileScreenState();
+}
+
+class _NGOProfileScreenState extends State<NGOProfileScreen> {
+  Future ngoInfo;
+
+  @override
+  void initState() {
+    ngoInfo = (context).read<FlutterFireAuthService>().getNGOInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,7 +111,53 @@ class NGOProfileScreen extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(top: 25),
                 width: MediaQuery.of(context).size.width,
-                child: ProfileInfo(),
+                child: FutureBuilder(
+                  future: ngoInfo,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    final result = snapshot.data;
+                    // print(snapshot);
+                    return Row(children: [
+                      //
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          child: Image.network(result.imgUrl),
+                          width: 70,
+                          height: 70,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              result.orgName,
+                              style: TextStyle(
+                                color: kPrimaryColor,
+                                fontSize: 24,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Text('Completed Tasks: ${result.completeTask}',
+                                style: TextStyle(
+                                    color: kPrimaryColor, fontSize: 16)),
+                            Text('Ongoing Tasks: ${result.remainingTask}',
+                                style: TextStyle(
+                                    color: kPrimaryColor, fontSize: 16)),
+                          ],
+                        ),
+                      )
+                    ]);
+                  },
+                ),
               ),
 
               SizedBox(
@@ -151,47 +210,6 @@ class NGOProfileScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class ProfileInfo extends StatelessWidget {
-  const ProfileInfo({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(children: [
-      //
-      Expanded(
-        flex: 3,
-        child: Container(
-          child: Image.asset('images/userIcon.png'),
-          width: 70,
-          height: 70,
-        ),
-      ),
-      Expanded(
-        flex: 7,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Yossama Pathorn',
-              style: TextStyle(
-                color: kPrimaryColor,
-                fontSize: 24,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text('Total success : 1,000',
-                style: TextStyle(color: kPrimaryColor, fontSize: 16))
-          ],
-        ),
-      )
-    ]);
   }
 }
 

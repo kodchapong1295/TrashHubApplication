@@ -34,6 +34,7 @@ class FlutterFireAuthService {
 
   Future<GeneralUser> getGeneralUserInfo() async {
     GeneralUser userInfo;
+    print(_getUserId());
     dynamic snapshot = await _firestore
         .collection('general_user')
         .doc(_getUserId())
@@ -50,8 +51,9 @@ class FlutterFireAuthService {
 
   Future<NGO> getNGOInfo() async {
     NGO ngo;
+    print(_getUserId());
     dynamic snapshot = await _firestore
-        .collection('general_user')
+        .collection('ngo')
         .doc(_getUserId())
         .get()
         .then((value) {
@@ -170,6 +172,8 @@ class FlutterFireAuthService {
         'size': size,
         'email': email,
         'imgUrl': imgUrl,
+        'completeTask': 0,
+        'remainingTask': 0,
       });
       Navigator.push(
         context,

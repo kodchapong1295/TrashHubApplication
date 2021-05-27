@@ -95,10 +95,6 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                                     email: email.text,
                                     password: password.text,
                                     context: context);
-                            final state = await context
-                                .read<FlutterFireAuthService>()
-                                .isUser();
-                            print(state);
                           }
                         },
                       ),
