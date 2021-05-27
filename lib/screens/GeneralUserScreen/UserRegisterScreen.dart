@@ -38,6 +38,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
@@ -75,11 +76,11 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        child: _image == null
-                            ? MaterialButton(
+                      _image == null
+                          ? Container(
+                              width: 100,
+                              height: 100,
+                              child: MaterialButton(
                                 onPressed: getImage,
                                 color: kPrimaryColor,
                                 textColor: Colors.white,
@@ -89,9 +90,21 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                                 ),
                                 padding: EdgeInsets.all(16),
                                 shape: CircleBorder(),
-                              )
-                            : Image.file(_image),
-                      ),
+                              ),
+                            )
+                          : Container(
+                              width: 100.0,
+                              height: 100.0,
+                              child: MaterialButton(
+                                onPressed: getImage,
+                                shape: CircleBorder(),
+                              ),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: FileImage(_image))),
+                            ),
                       SizedBox(
                         height: 20,
                       ),
