@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trashhub/components/ViewReport/CustomDialog.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -119,6 +120,50 @@ class UserProfileScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
+              // Container(
+              //   height: MediaQuery.of(context).size.height * 0.55,
+              //   child: Center(
+              //     child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       children: [
+              //         SizedBox(
+              //           height: MediaQuery.of(context).size.height * 0.02,
+              //         ),
+              //         Icon(
+              //           Icons.description_rounded,
+              //           color: Colors.grey[400],
+              //           size: MediaQuery.of(context).size.height * 0.2,
+              //         ),
+              //         SizedBox(
+              //           height: MediaQuery.of(context).size.height * 0.01,
+              //         ),
+              //         Text('No Request Found',
+              //             style: TextStyle(
+              //               color: Colors.grey[700],
+              //               fontWeight: FontWeight.bold,
+              //               fontSize: 34,
+              //             )),
+              //         SizedBox(
+              //           height: MediaQuery.of(context).size.height * 0.08,
+              //         ),
+              //         Text('Add New Request below',
+              //             style: TextStyle(
+              //               fontWeight: FontWeight.bold,
+              //               color: Colors.grey[600],
+              //               fontSize: 19,
+              //             )),
+              //         SizedBox(
+              //           height: MediaQuery.of(context).size.height * 0.01,
+              //         ),
+              //         Icon(
+              //           Icons.arrow_downward,
+              //           color: Colors.grey[600],
+              //           size: 100.0,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               CarouselSlider(
                 options: CarouselOptions(
                   autoPlay: true,
@@ -141,7 +186,14 @@ class UserProfileScreen extends StatelessWidget {
                         textStyle: TextStyle(
                           fontSize: 18,
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => CustomeDialog(
+                                title: "Request Details",
+                                description: 'test',
+                              ));
+                    },
                     icon: Icon(Icons.info_outline),
                     label: Text('See More')),
               ),

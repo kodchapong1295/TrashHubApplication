@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/screens/GeneralUserScreen/SelectLocationScreen.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 
 final api = "AIzaSyDEupLpQBvxO2k82zixOTNfNtjcAAoNPDo";
 
@@ -15,6 +19,20 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
   final TextEditingController inputDescription = TextEditingController();
 
   String inputLocation;
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +60,48 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
                 SizedBox(
                   height: 25,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: 400,
-                  child: Image.network(
-                    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-                    fit: BoxFit.cover,
-                    height: double.infinity,
-                    width: double.infinity,
-                    alignment: Alignment.center,
+                GestureDetector(
+                  onTap: getImage,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 400,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: _image == null
+                          ? Image.asset(
+                              'images/placeholderImg.png',
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                            )
+                          : Image.file(
+                              _image,
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                            ),
+                    ),
                   ),
                 ),
+                // Container(
+                //   width: 100,
+                //   height: 100,
+                //   child: _image == null
+                //       ? MaterialButton(
+                //           onPressed: getImage,
+                //           color: kPrimaryColor,
+                //           textColor: Colors.white,
+                //           child: Icon(
+                //             Icons.camera_alt,
+                //             size: 40,
+                //           ),
+                //           padding: EdgeInsets.all(16),
+                //           shape: CircleBorder(),
+                //         )
+                //       : ,
+                // ),
                 SizedBox(
                   height: 10,
                 ),
@@ -67,9 +116,32 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
                           textStyle: TextStyle(
                             fontSize: 15,
                           )),
-                      onPressed: () {},
+                      onPressed: getImage,
                       icon: Icon(Icons.image),
-                      label: Text('Upload Image')),
+                      label: _image == null
+                          ? Text("Upload Image")
+                          : Expanded(
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                      _image.path.split('/').last.length >= 28
+                                          ? _image.path
+                                                  .split('/')
+                                                  .last
+                                                  .substring(0, 28) +
+                                              "..."
+                                          : _image.path.split('/').last,
+                                      textAlign: TextAlign.center,
+                                    )),
+                                    Icon(
+                                      Icons.arrow_forward_ios_sharp,
+                                      color: Colors.white,
+                                      size: 20.0,
+                                    )
+                                  ]),
+                            )),
                 ),
                 Container(
                     margin: EdgeInsets.fromLTRB(20, 0, 20, 20),
@@ -176,7 +248,7 @@ class ButtomButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => UploadReportScreen()),
+              MaterialPageRoute(builder: (context) => UserProfileScreen()),
             );
           },
         ));
