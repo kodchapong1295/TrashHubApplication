@@ -74,6 +74,7 @@ class FlutterFireAuthService {
         .then((value) {
       value.docs.forEach((element) {
         reports.add(Report(
+          id: element.id,
           date: element
               .data()['create_date']
               .toDate()
@@ -99,7 +100,13 @@ class FlutterFireAuthService {
         .then((value) {
       value.docs.forEach((element) {
         reports.add(Report(
-          date: element.data()['create_date'],
+          id: element.id,
+          date: element
+              .data()['create_date']
+              .toDate()
+              .toString()
+              .split('.')
+              .first,
           location: element.data()['location'],
           imgUrl: element.data()['imgUrl'],
           status: element.data()['status'],

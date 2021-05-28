@@ -1,4 +1,5 @@
 class Report {
+  String id;
   String imgUrl;
   String location;
   String description;
@@ -7,6 +8,7 @@ class Report {
   String status;
 
   Report({
+    this.id,
     this.date,
     this.description,
     this.imgUrl,
