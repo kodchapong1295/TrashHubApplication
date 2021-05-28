@@ -1,18 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:trashhub/constants.dart';
-
 import 'package:trashhub/screens/GeneralUserScreen/UserLoginScreen.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserRegisterScreen.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOsLoginScreen.dart';
-import 'package:trashhub/screens/NGOsScreen/NGOsRegisterScreen.dart';
-
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
-import 'NGOsScreen/ViewReportNGO.dart';
-
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,7 +30,7 @@ class AuthenMenu extends StatelessWidget {
             }
             return "NGO";
           }), builder: (ctx, auth) {
-            print(auth);
+            // print(auth);
             if (auth.hasData) {
               if (auth.data == "User") {
                 return UserProfileScreen();
@@ -234,11 +228,5 @@ class AuthenMenu extends StatelessWidget {
               ),
             ),
           );
-    // if (firebaseUser != null) {
-    //   print(firebaseUser);
-    //   print('User has already logged in');
-    //   return UserProfileScreen();
-    // }
-    // return
   }
 }
