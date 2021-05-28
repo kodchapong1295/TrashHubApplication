@@ -56,7 +56,7 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen>
 
   @override
   Widget build(BuildContext context) {
-    showOverLay() async {
+    showOverLay(status) async {
       OverlayState overlayState = Overlay.of(context);
       RenderBox renderBox = appBarKey.currentContext.findRenderObject();
       Offset offset = renderBox.localToGlobal(Offset.zero);
@@ -78,7 +78,7 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen>
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
-                    "Register Complete",
+                    status,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -241,8 +241,7 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen>
                               this.imgUrl =
                                   "https://th.jobsdb.com/en-th/cms/employer/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png";
                             }
-
-                            await context
+                            final status = await context
                                 .read<FlutterFireAuthService>()
                                 .signUpNGOs(
                                     email: email.text,
@@ -251,8 +250,8 @@ class _NGOsRegisterScreenState extends State<NGOsRegisterScreen>
                                     size: size.text,
                                     imgUrl: imgUrl,
                                     context: context);
+                            showOverLay(status);
                           }
-                          showOverLay();
                         },
                       ),
                     ],
