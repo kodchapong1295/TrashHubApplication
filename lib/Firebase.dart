@@ -97,6 +97,7 @@ class FlutterFireAuthService {
         ));
       });
     });
+    return reports;
   }
 
   Future<List<Report>> getWaitingReports() async {
