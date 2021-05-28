@@ -57,6 +57,53 @@ class _UploadReportScreenState extends State<UploadReportScreen>
 
   @override
   Widget build(BuildContext context) {
+    showOverLay(status) async {
+      OverlayState overlayState = Overlay.of(context);
+      RenderBox renderBox = appBarKey.currentContext.findRenderObject();
+      Offset offset = renderBox.localToGlobal(Offset.zero);
+
+      overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+          top: offset.dy + renderBox.size.height,
+          right: 0.0,
+          left: 0.0,
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Material(
+              child: Opacity(
+                opacity: animation.value,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    status,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      animationController.addListener(() {
+        overlayState.setState(() {});
+      });
+
+      overlayState.insert(overlayEntry);
+      animationController.forward();
+      await Future.delayed(Duration(seconds: 2)).whenComplete(() {
+        overlayEntry.remove();
+        animationController.reverse();
+      });
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -85,9 +132,12 @@ class _UploadReportScreenState extends State<UploadReportScreen>
               .read<FlutterFireAuthService>()
               .uploadImageToFirebase(_image);
           this.imgUrl = url;
-          await (context).read<FlutterFireAuthService>().createRequest(
-              imgUrl, inputLocation, inputDescription.text, context);
+          final status = await (context)
+              .read<FlutterFireAuthService>()
+              .createRequest(
+                  imgUrl, inputLocation, inputDescription.text, context);
           Navigator.of(context).pop();
+          showOverLay(status);
         },
       ),
       body: SingleChildScrollView(
@@ -248,10 +298,7 @@ class _UploadReportScreenState extends State<UploadReportScreen>
                         kTextField.copyWith(hintText: 'Enter Description ...'),
                   ),
                 ),
-                RaisedButton(
-                  onPressed: showOverLay,
-                  child: Text("Show"),
-                )
+
                 // RequestHistoryList(),
                 // RequestHistoryList()
               ],
