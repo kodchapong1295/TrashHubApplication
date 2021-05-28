@@ -20,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
 
   Future<List<Report>> getReports() async {
     final List<Report> reports =
-        await (context).read<FlutterFireAuthService>().getWaitingReports();
+        await (context).read<FlutterFireAuthService>().ngoGetReports("waiting");
     return reports;
   }
 

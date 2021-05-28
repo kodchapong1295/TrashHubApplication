@@ -33,9 +33,15 @@ class FlutterFireAuthService {
     return snapshot.data() != null;
   }
 
-  Future<void> increaseTotalReport() async {
+  Future<void> increaseTotalReport(int i) async {
     await _firestore.collection('general_user').doc(_getUserId()).update({
-      'totalReport': FieldValue.increment(1),
+      'totalReport': FieldValue.increment(i),
+    });
+  }
+
+  Future<void> increaseNgoOngoingReport(int i) async {
+    await _firestore.collection('report').doc(_getUserId()).update({
+      'remainingTask': FieldValue.increment(i),
     });
   }
 
@@ -44,6 +50,7 @@ class FlutterFireAuthService {
       'status': "ongoing",
       'responsible_by': _getUserId(),
     });
+    increaseNgoOngoingReport(1);
   }
 
   Future<String> createRequest(
@@ -64,7 +71,7 @@ class FlutterFireAuthService {
           'location': location,
         },
       );
-      await increaseTotalReport();
+      await increaseTotalReport(1);
       return "Add Report Success";
     } on FirebaseAuthException catch (e) {
       print(e.toString());
@@ -99,12 +106,12 @@ class FlutterFireAuthService {
     });
   }
 
-  Future<List<Report>> getWaitingReports() async {
+  Future<List<Report>> ngoGetReports(String status) async {
     print('GETING WAITING REPORT');
     List<Report> reports = [];
     dynamic snapshots = await _firestore
         .collection('report')
-        .where("status", isEqualTo: "waiting")
+        .where("status", isEqualTo: status)
         .get()
         .then((value) {
       value.docs.forEach((element) {
