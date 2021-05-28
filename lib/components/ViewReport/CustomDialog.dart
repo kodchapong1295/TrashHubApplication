@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'Trip.dart';
 import 'package:trashhub/constants.dart';
+
+import 'package:provider/provider.dart';
 
 class CustomeDialog extends StatelessWidget {
   final String topic, title, description, button, location, date;
@@ -79,7 +82,7 @@ class CustomeDialog extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "No    : ",
+                          "ID    : ",
                           style: TextStyle(
                               fontSize: 16,
                               color: kPrimaryColor,
@@ -165,7 +168,11 @@ class CustomeDialog extends StatelessWidget {
                     btnColor: kPrimaryColor,
                     textColor: Colors.white,
                     onPressed: () {
+                      (context)
+                          .read<FlutterFireAuthService>()
+                          .ngoAcceptReport(no);
                       Navigator.pop(context);
+                      // Navigator.pop(context);
                     },
                   ),
                 ),
