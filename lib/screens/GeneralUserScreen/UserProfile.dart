@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/screens/GeneralUserScreen/ViewRequest.dart';
 
+import 'package:trashhub/screens/AuthenMenu.dart';
+
 import 'UploadReportScreen.dart';
 
 final List<String> imgList = [
@@ -106,15 +108,25 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void popUntilRoot({Object result}) {
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+        popUntilRoot();
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.logout),
-          onPressed: () {
-            context.read<FlutterFireAuthService>().signOut();
+          onPressed: () async {
+            await context.read<FlutterFireAuthService>().signOut();
             if (Navigator.of(context).canPop()) {
               Navigator.of(context).pop();
+              // popUntilRoot();
             }
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => AuthenMenu()));
           },
         ),
         iconTheme: IconThemeData(
@@ -269,7 +281,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         textStyle: TextStyle(
                           fontSize: 18,
                         )),
-                    onPressed: () {
+                    onPressed: () async {
+                      await (context)
+                          .read<FlutterFireAuthService>()
+                          .getUserReports();
                       showDialog(
                           context: context,
                           builder: (context) => DialogShowStatus(

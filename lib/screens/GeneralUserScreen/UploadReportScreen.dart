@@ -68,10 +68,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
           this.imgUrl = url;
           await (context).read<FlutterFireAuthService>().createRequest(
               imgUrl, inputLocation, inputDescription.text, context);
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => UserProfileScreen()),
-          );
+          Navigator.of(context).pop();
         },
       ),
       body: SingleChildScrollView(
