@@ -92,6 +92,26 @@ class FlutterFireAuthService {
     });
   }
 
+  Future<List<Report>> getWaitingReports() async {
+    List<Report> reports = [];
+    dynamic snapshots = await _firestore
+        .collection('report')
+        .where("status", isEqualTo: "waiting")
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        reports.add(Report(
+          date: element.data()['create_date'],
+          location: element.data()['location'],
+          imgUrl: element.data()['imgUrl'],
+          status: element.data()['status'],
+          responsible_by: element.data()['responsible_by'],
+          description: element.data()['description'],
+        ));
+      });
+    });
+  }
+
   Future<GeneralUser> getGeneralUserInfo() async {
     GeneralUser userInfo;
     print(_getUserId());

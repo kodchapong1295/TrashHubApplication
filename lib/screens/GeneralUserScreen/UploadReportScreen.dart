@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:trashhub/Firebase.dart';
+import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/screens/GeneralUserScreen/SelectLocationScreen.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
@@ -17,7 +18,24 @@ class UploadReportScreen extends StatefulWidget {
   _UploadReportScreenState createState() => _UploadReportScreenState();
 }
 
-class _UploadReportScreenState extends State<UploadReportScreen> {
+class _UploadReportScreenState extends State<UploadReportScreen>
+    with TickerProviderStateMixin {
+  OverlayEntry overlayEntry;
+  GlobalKey appBarKey = GlobalKey();
+  AnimationController animationController;
+  Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    animation =
+        Tween<double>(begin: 0.0, end: 1.0).animate(animationController);
+  }
+
   final TextEditingController inputDescription = TextEditingController();
   String inputLocation;
   File _image;
@@ -42,6 +60,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        key: appBarKey,
         iconTheme: IconThemeData(
           color: kPrimaryColor, //change your color here
         ),
@@ -213,7 +232,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
                                         Icons.arrow_forward_ios_sharp,
                                         color: Colors.white,
                                         size: 20.0,
-                                      )
+                                      ),
                                     ]),
                               ))),
 
@@ -229,6 +248,10 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
                         kTextField.copyWith(hintText: 'Enter Description ...'),
                   ),
                 ),
+                RaisedButton(
+                  onPressed: showOverLay,
+                  child: Text("Show"),
+                )
                 // RequestHistoryList(),
                 // RequestHistoryList()
               ],
@@ -237,6 +260,53 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
         ),
       ),
     );
+  }
+
+  showOverLay() async {
+    OverlayState overlayState = Overlay.of(context);
+    RenderBox renderBox = appBarKey.currentContext.findRenderObject();
+    Offset offset = renderBox.localToGlobal(Offset.zero);
+
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        top: offset.dy + renderBox.size.height,
+        right: 0.0,
+        left: 0.0,
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Material(
+            child: Opacity(
+              opacity: animation.value,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  "Submit Completee",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    animationController.addListener(() {
+      overlayState.setState(() {});
+    });
+
+    overlayState.insert(overlayEntry);
+    animationController.forward();
+    await Future.delayed(Duration(seconds: 5)).whenComplete(() {
+      overlayEntry.remove();
+      animationController.reverse();
+    });
   }
 }
 
