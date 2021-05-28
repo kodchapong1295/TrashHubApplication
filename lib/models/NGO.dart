@@ -5,10 +5,11 @@ class NGO {
   int completeTask;
   int remainingTask;
 
-  NGO(
-      {this.completeTask,
-      this.imgUrl,
-      this.orgName,
-      this.remainingTask,
-      this.size});
+  NGO({
+    this.completeTask,
+    this.imgUrl,
+    this.orgName,
+    this.remainingTask,
+    this.size,
+  });
 }

@@ -7,6 +7,7 @@ import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 import 'package:trashhub/models/GeneralUser.dart';
 import 'package:trashhub/models/NGO.dart';
+import 'package:trashhub/models/Report.dart';
 
 class FlutterFireAuthService {
   final FirebaseAuth _firebaseAuth;
@@ -31,6 +32,42 @@ class FlutterFireAuthService {
         await _firestore.collection('ngo').doc(_getUserId()).get();
     return snapshot.data() != null;
   }
+
+  Future<void> increaseTotalReport() async {
+    await _firestore.collection('general_user').doc(_getUserId()).update({
+      'totalReport': FieldValue.increment(1),
+    });
+  }
+
+  Future<String> createRequest(
+    String imgUrl,
+    String location,
+    String description,
+    BuildContext context,
+  ) async {
+    try {
+      await _firestore.collection('report').add(
+        {
+          'create_by': _getUserId(),
+          'imgUrl': imgUrl,
+          'status': "waiting",
+          'responsible_by': "",
+          'create_date': FieldValue.serverTimestamp(),
+        },
+      );
+      await increaseTotalReport();
+      return "Add Report Success";
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return e.message;
+    }
+  }
+
+  // GET Method
+  // Future<List<Report>> getUserReports() async {
+  //   List<Report> reports = [];
+  //   dynamic snapshots = await
+  // }
 
   Future<GeneralUser> getGeneralUserInfo() async {
     GeneralUser userInfo;

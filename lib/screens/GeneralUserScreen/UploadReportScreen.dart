@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/constants.dart';
 import 'package:trashhub/screens/GeneralUserScreen/SelectLocationScreen.dart';
 import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:google_maps_flutter_platform_interface/src/types/location.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
+import 'package:provider/provider.dart';
 
 final api = "AIzaSyDEupLpQBvxO2k82zixOTNfNtjcAAoNPDo";
 
@@ -20,6 +22,7 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
   String inputLocation;
   File _image;
   final picker = ImagePicker();
+  String imgUrl;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
@@ -57,7 +60,20 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
               fontSize: 20,
             )),
       ),
-      bottomNavigationBar: ButtomButton(),
+      bottomNavigationBar: ButtomButton(
+        onPress: () async {
+          final url = await (context)
+              .read<FlutterFireAuthService>()
+              .uploadImageToFirebase(_image);
+          this.imgUrl = url;
+          await (context).read<FlutterFireAuthService>().createRequest(
+              imgUrl, inputLocation, inputDescription.text, context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UserProfileScreen()),
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -229,9 +245,11 @@ class _UploadReportScreenState extends State<UploadReportScreen> {
 
 class ButtomButton extends StatelessWidget {
   const ButtomButton({
+    this.onPress,
     Key key,
   }) : super(key: key);
 
+  final Function onPress;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -247,12 +265,7 @@ class ButtomButton extends StatelessWidget {
               fontSize: 18,
             ),
           ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => UserProfileScreen()),
-            );
-          },
+          onPressed: onPress,
         ));
   }
 }
