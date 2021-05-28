@@ -284,7 +284,7 @@ class _UploadReportScreenState extends State<UploadReportScreen>
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Text(
-                  "Submit Complete",
+                  "Submit Completee",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
