@@ -11,16 +11,18 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  Future reports;
+  Future reports; // 1.)
   @override
   void initState() {
-    reports = getReports();
+    reports = getReports(); // 2.)
     super.initState();
   }
 
   Future<List<Report>> getReports() async {
-    final List<Report> reports =
-        await (context).read<FlutterFireAuthService>().ngoGetReports("waiting");
+    // all function
+    final List<Report> reports = await (context)
+        .read<FlutterFireAuthService>()
+        .ngoGetReports("waiting"); //เปลี่ยน status ตามข้อมูลที่อยากได้
     return reports;
   }
 
@@ -44,6 +46,7 @@ class _HomeViewState extends State<HomeView> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return FutureBuilder(
+        // 4.)
         future: reports,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
