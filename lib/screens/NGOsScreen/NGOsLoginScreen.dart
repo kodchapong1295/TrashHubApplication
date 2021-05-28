@@ -37,7 +37,7 @@ class _NGOsLoginScreenState extends State<NGOsLoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    showOverLay() async {
+    showOverLay(status) async {
       OverlayState overlayState = Overlay.of(context);
       RenderBox renderBox = appBarKey.currentContext.findRenderObject();
       Offset offset = renderBox.localToGlobal(Offset.zero);
@@ -59,7 +59,7 @@ class _NGOsLoginScreenState extends State<NGOsLoginScreen>
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
-                    "Login Completee",
+                    status,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -153,14 +153,14 @@ class _NGOsLoginScreenState extends State<NGOsLoginScreen>
                         textColor: Colors.white,
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            await context
+                            final status = await context
                                 .read<FlutterFireAuthService>()
                                 .signInNGOs(
                                     email: email.text,
                                     password: password.text,
                                     context: context);
+                            showOverLay(status);
                           }
-                          showOverLay();
                         },
                       ),
                       TextButton(
