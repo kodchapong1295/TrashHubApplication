@@ -15,83 +15,173 @@ import 'package:trashhub/screens/AuthenMenu.dart';
 
 import 'UploadReportScreen.dart';
 
-List<Widget> buildImageSliders(List<Report> reports) {
+List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
   print(reports);
   return reports
       .map((r) => Container(
-            child: Container(
-              margin: EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  child: Stack(
-                    children: <Widget>[
-                      Image.network(r.imgUrl,
-                          height: double.infinity,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          fit: BoxFit.cover),
-                      Positioned(
-                        bottom: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                r.status == 'completed'
-                                    ? Color.fromARGB(200, 50, 205, 50)
-                                    : r.status == 'ongoing'
-                                        ? Color.fromARGB(200, 255, 165, 0)
-                                        : Color.fromARGB(200, 255, 25, 0),
-                                Color.fromARGB(0, 0, 0, 0)
+            child: GestureDetector(
+              onTap: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) => DialogShowStatus(
+                          topic: "Request Details",
+                          id: r.id,
+                          date: r.date,
+                          status: r.status,
+                          location: r.location,
+                          description: r.description,
+                          responsible_by: r.responsible_by,
+                        ));
+              },
+              child: Container(
+                margin: EdgeInsets.all(5.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(r.imgUrl,
+                            height: double.infinity,
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            fit: BoxFit.cover),
+                        Positioned(
+                          top: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(0, 0, 0, 0),
+                                  r.status == 'completed'
+                                      ? Color.fromARGB(200, 50, 205, 50)
+                                      : r.status == 'ongoing'
+                                          ? Color.fromARGB(200, 255, 165, 0)
+                                          : Color.fromARGB(200, 255, 25, 0),
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Icon(
+                                  Icons.info_outline,
+                                  color: Colors.white,
+                                  size: 35,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text("Tap For Details",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ))
                               ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
                             ),
                           ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          child: Row(
-                            children: [
-                              r.status == 'completed'
-                                  ? Icon(
-                                      Icons.check,
-                                      color: Colors.white,
-                                      size: 40.0,
-                                    )
-                                  : r.status == 'ongoing'
-                                      ? Icon(
-                                          Icons.flag_outlined,
-                                          color: Colors.white,
-                                          size: 40.0,
-                                        )
-                                      : Icon(
-                                          Icons.hourglass_empty,
-                                          color: Colors.white,
-                                          size: 40.0,
-                                        ),
-                              SizedBox(
-                                width: 20,
+                        ),
+                        Positioned(
+                          bottom: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  r.status == 'completed'
+                                      ? Color.fromARGB(200, 50, 205, 50)
+                                      : r.status == 'ongoing'
+                                          ? Color.fromARGB(200, 255, 165, 0)
+                                          : Color.fromARGB(200, 255, 25, 0),
+                                  Color.fromARGB(0, 0, 0, 0)
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
                               ),
-                              Text(
-                                '${r.location.split(',').first}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                            child: Row(
+                              children: [
+                                r.status == 'completed'
+                                    ? Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: 40.0,
+                                      )
+                                    : r.status == 'ongoing'
+                                        ? Icon(
+                                            Icons.flag_outlined,
+                                            color: Colors.white,
+                                            size: 40.0,
+                                          )
+                                        : Icon(
+                                            Icons.hourglass_empty,
+                                            color: Colors.white,
+                                            size: 40.0,
+                                          ),
+                                SizedBox(
+                                  width: 20,
                                 ),
-                              ),
-                            ],
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: Text(
+                                    '${r.location.split(',').first.length >= 20 ? r.location.split(',').first.substring(0, 21) + "..." : r.location.split(',').first}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  )),
+                      ],
+                    )),
+              ),
             ),
           ))
       .toList();
 }
-// List<Widget> imageSliders = imgList
+
+List<Widget> buildSeeMoreSliders(List<Report> reports, BuildContext context) {
+  print(reports);
+  return reports
+      .map((r) => Column(
+            children: [
+              Container(
+                child: Container(
+                  margin: EdgeInsets.all(5.0),
+                  child: Container(
+                    margin: EdgeInsets.all(20),
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: 45,
+                    child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: kPrimaryColor,
+                            textStyle: TextStyle(
+                              fontSize: 18,
+                            )),
+                        onPressed: null,
+                        icon: Icon(Icons.info_outline),
+                        label: Text('See More')),
+                  ),
+                ),
+              ),
+            ],
+          ))
+      .toList();
+}
 
 class UserProfileScreen extends StatefulWidget {
   @override
@@ -101,6 +191,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   Future reportsInfo;
   Future userInfo;
+  final CarouselController _seeMoreController = CarouselController();
   @override
   void initState() {
     userInfo = (context).read<FlutterFireAuthService>().getGeneralUserInfo();
@@ -223,52 +314,40 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       final result = snapshot.data;
 
                       print(snapshot.data);
-                      final imglist = buildImageSliders(result);
+                      final imglist = buildImageSliders(result, context);
+                      final seeMorelist = buildSeeMoreSliders(result, context);
                       if (result.isEmpty) {
                         return NoReportFound();
                       } else {
-                        return CarouselSlider(
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            height: MediaQuery.of(context).size.height * 0.45,
-                            enlargeCenterPage: true,
-                          ),
-                          items: imglist,
+                        return Column(
+                          children: [
+                            CarouselSlider(
+                              carouselController: _seeMoreController,
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.55,
+                                enlargeCenterPage: true,
+                              ),
+                              items: imglist,
+                            ),
+                            // SizedBox(
+                            //   height: 10,
+                            // ),
+                            // CarouselSlider(
+                            //   carouselController: _seeMoreController,
+                            //   options: CarouselOptions(
+                            //     autoPlay: true,
+                            //     height:
+                            //         MediaQuery.of(context).size.height * 0.4,
+                            //     enlargeCenterPage: true,
+                            //   ),
+                            //   items: seeMorelist,
+                            // ),
+                          ],
                         );
                       }
                     }),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                margin: EdgeInsets.all(20),
-                width: MediaQuery.of(context).size.width * 0.41,
-                height: 45,
-                child: TextButton.icon(
-                    style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: kPrimaryColor,
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                        )),
-                    onPressed: () async {
-                      await (context)
-                          .read<FlutterFireAuthService>()
-                          .getUserReports();
-                      showDialog(
-                          context: context,
-                          builder: (context) => DialogShowStatus(
-                                topic: "Request Details",
-                                no: "1",
-                                date: "05/05/2021",
-                                status: "On-going",
-                                location: "BangCare",
-                                description: "trip.description",
-                              ));
-                    },
-                    icon: Icon(Icons.info_outline),
-                    label: Text('See More')),
               ),
             ],
           ),
@@ -309,7 +388,7 @@ class NoReportFound extends StatelessWidget {
                   fontSize: 34,
                 )),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.08,
+              height: MediaQuery.of(context).size.height * 0.080,
             ),
             Text('Add New Request below',
                 style: TextStyle(

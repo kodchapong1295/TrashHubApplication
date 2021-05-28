@@ -127,18 +127,30 @@ class _UploadReportScreenState extends State<UploadReportScreen>
             )),
       ),
       bottomNavigationBar: ButtomButton(
-        onPress: () async {
-          final url = await (context)
-              .read<FlutterFireAuthService>()
-              .uploadImageToFirebase(_image);
-          this.imgUrl = url;
-          final status = await (context)
-              .read<FlutterFireAuthService>()
-              .createRequest(
-                  imgUrl, inputLocation, inputDescription.text, context);
-          Navigator.of(context).pop();
-          showOverLay(status);
-        },
+        onPress: (_image == null || inputLocation == null)
+            ? null
+            : () async {
+                final url = await (context)
+                    .read<FlutterFireAuthService>()
+                    .uploadImageToFirebase(_image);
+                this.imgUrl = url;
+                final status = await (context)
+                    .read<FlutterFireAuthService>()
+                    .createRequest(
+                        imgUrl, inputLocation, inputDescription.text, context);
+                if (Navigator.of(context).canPop()) {
+                  Navigator.of(context).pop();
+                  if (Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
+                }
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => UserProfileScreen()));
+                showOverLay(status);
+              },
       ),
       body: SingleChildScrollView(
         child: SafeArea(

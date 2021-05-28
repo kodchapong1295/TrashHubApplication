@@ -205,7 +205,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                           context: context,
                           builder: (context) => DialogShowStatus(
                                 topic: "Request Details",
-                                no: "1",
+                                id: "1",
                                 date: "05/05/2021",
                                 status: "On-going",
                                 location: "BangCare",
