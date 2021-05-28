@@ -56,7 +56,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen>
 
   @override
   Widget build(BuildContext context) {
-    showOverLay() async {
+    showOverLay(status) async {
       OverlayState overlayState = Overlay.of(context);
       RenderBox renderBox = appBarKey.currentContext.findRenderObject();
       Offset offset = renderBox.localToGlobal(Offset.zero);
@@ -78,7 +78,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen>
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
-                    "Login Completee",
+                    status,
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -242,8 +242,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen>
                               this.imgUrl =
                                   "https://th.jobsdb.com/en-th/cms/employer/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png";
                             }
-
-                            await context
+                            final status = await context
                                 .read<FlutterFireAuthService>()
                                 .signUpUser(
                                     email: email.text,
@@ -252,6 +251,7 @@ class _UserRegisterScreenState extends State<UserRegisterScreen>
                                     lastname: lastname.text,
                                     imgUrl: imgUrl,
                                     context: context);
+                            showOverLay(status);
                           }
                         },
                       ),
