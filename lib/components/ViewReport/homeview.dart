@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/components/ViewReport/CustomDialog.dart';
+import 'package:provider/provider.dart';
+import 'package:trashhub/models/Report.dart';
 import 'Trip.dart';
 
 class HomeView extends StatefulWidget {
@@ -8,34 +11,60 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final List<Trip> tripsList = [
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around there."),
-    Trip(7779, "Best is God", DateTime.now(), "Ratchasima District, Nakhon",
-        "There are many Best around thereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee."),
-  ];
+  Future reports;
+  @override
+  void initState() {
+    reports = getReports();
+    super.initState();
+  }
+
+  Future<List<Report>> getReports() async {
+    final List<Report> reports =
+        await (context).read<FlutterFireAuthService>().getWaitingReports();
+    return reports;
+  }
+
+  final List<Trip> tripsList = [];
+
+  List<Trip> buildListTrip(List<Report> reports) {
+    List<Trip> list = [];
+    reports.forEach((element) {
+      list.add(Trip(
+          id: element.id,
+          date: element.date,
+          description: element.description,
+          imgUrl: element.imgUrl,
+          location: element.location));
+    });
+    return list;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: new ListView.builder(
-        itemCount: tripsList.length,
-        itemBuilder: (BuildContext context, int index) =>
-            buildTripCard(context, index),
-      ),
-    );
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return FutureBuilder(
+        future: reports,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+          // print(snapshot.data);
+          final List<Trip> list = buildListTrip(snapshot.data);
+          // print(list);
+          return Container(
+            child: new ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  buildTripCard(context, index, list),
+            ),
+          );
+        });
   }
 
-  Widget buildTripCard(BuildContext context, int index) {
-    final trip = tripsList[index];
+  Widget buildTripCard(BuildContext context, int index, List<Trip> list) {
+    // print(list[1].location);
+    final trip = list[index];
     return new Container(
       child: InkWell(
         onTap: () {
@@ -43,8 +72,8 @@ class _HomeViewState extends State<HomeView> {
               context: context,
               builder: (context) => CustomeDialog(
                     topic: "Request Details",
-                    no: trip.no.toString(),
-                    date: trip.date.toString().split(" ")[0],
+                    no: trip.id,
+                    date: trip.date,
                     location: trip.location,
                     description: trip.description,
                   ));
@@ -63,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          child: Image.asset('images/logo.png'),
+                          child: Image.network(trip.imgUrl),
                           width: 60,
                         ),
                         Padding(
@@ -72,16 +101,20 @@ class _HomeViewState extends State<HomeView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
+                                width: 200,
                                 child: Text(
-                                  trip.title,
+                                  trip.location,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16),
                                 ),
                               ),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Container(
                                 child: Text(
-                                  trip.date.toString().split(" ")[0],
+                                  trip.date,
                                   style: TextStyle(fontSize: 14),
                                 ),
                               ),

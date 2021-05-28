@@ -54,6 +54,7 @@ class FlutterFireAuthService {
           'responsible_by': "",
           'create_date': FieldValue.serverTimestamp(),
           'description': description,
+          'location': location,
         },
       );
       await increaseTotalReport();
@@ -92,6 +93,7 @@ class FlutterFireAuthService {
   }
 
   Future<List<Report>> getWaitingReports() async {
+    print('GETING WAITING REPORT');
     List<Report> reports = [];
     dynamic snapshots = await _firestore
         .collection('report')
@@ -115,6 +117,7 @@ class FlutterFireAuthService {
         ));
       });
     });
+    return reports;
   }
 
   Future<GeneralUser> getGeneralUserInfo() async {

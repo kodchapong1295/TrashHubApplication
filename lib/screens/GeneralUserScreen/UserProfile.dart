@@ -9,7 +9,6 @@ import 'package:trashhub/models/GeneralUser.dart';
 
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
-import 'package:trashhub/screens/GeneralUserScreen/ViewRequest.dart';
 
 import 'package:trashhub/screens/AuthenMenu.dart';
 

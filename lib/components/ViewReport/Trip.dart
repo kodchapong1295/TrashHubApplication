@@ -1,9 +1,19 @@
 class Trip {
-  final int no;
-  final String title;
-  final DateTime date;
-  final String location;
-  final String description;
+  String id;
+  String imgUrl;
+  String location;
+  String description;
+  String date;
+  String responsible_by;
+  String status;
 
-  Trip(this.no, this.title, this.date, this.location, this.description);
+  Trip({
+    this.id,
+    this.date,
+    this.description,
+    this.imgUrl,
+    this.location,
+    this.responsible_by,
+    this.status,
+  });
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/components/ViewReport/homeview.dart';
 import 'dart:async';
-
+import 'package:provider/provider.dart';
 import 'package:trashhub/constants.dart';
 
 class ViewReport extends StatefulWidget {
