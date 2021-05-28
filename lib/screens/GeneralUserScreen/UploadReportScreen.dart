@@ -30,10 +30,10 @@ class _UploadReportScreenState extends State<UploadReportScreen>
     super.initState();
     animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 2),
     );
     animation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(animationController);
+        Tween<double>(begin: 1.0, end: 1.0).animate(animationController);
   }
 
   final TextEditingController inputDescription = TextEditingController();
@@ -279,7 +279,7 @@ class _UploadReportScreenState extends State<UploadReportScreen>
               opacity: animation.value,
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.black54,
+                  color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -303,7 +303,7 @@ class _UploadReportScreenState extends State<UploadReportScreen>
 
     overlayState.insert(overlayEntry);
     animationController.forward();
-    await Future.delayed(Duration(seconds: 5)).whenComplete(() {
+    await Future.delayed(Duration(seconds: 2)).whenComplete(() {
       overlayEntry.remove();
       animationController.reverse();
     });

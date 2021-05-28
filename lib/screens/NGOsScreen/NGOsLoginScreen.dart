@@ -13,16 +13,81 @@ class NGOsLoginScreen extends StatefulWidget {
   _NGOsLoginScreenState createState() => _NGOsLoginScreenState();
 }
 
-class _NGOsLoginScreenState extends State<NGOsLoginScreen> {
+class _NGOsLoginScreenState extends State<NGOsLoginScreen>
+    with TickerProviderStateMixin {
+  OverlayEntry overlayEntry;
+  GlobalKey appBarKey = GlobalKey();
+  AnimationController animationController;
+  Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+    animation =
+        Tween<double>(begin: 1.0, end: 1.0).animate(animationController);
+  }
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    showOverLay() async {
+      OverlayState overlayState = Overlay.of(context);
+      RenderBox renderBox = appBarKey.currentContext.findRenderObject();
+      Offset offset = renderBox.localToGlobal(Offset.zero);
+
+      overlayEntry = OverlayEntry(
+        builder: (context) => Positioned(
+          top: offset.dy + renderBox.size.height,
+          right: 0.0,
+          left: 0.0,
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Material(
+              child: Opacity(
+                opacity: animation.value,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    "Login Completee",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      animationController.addListener(() {
+        overlayState.setState(() {});
+      });
+
+      overlayState.insert(overlayEntry);
+      animationController.forward();
+      await Future.delayed(Duration(seconds: 2)).whenComplete(() {
+        overlayEntry.remove();
+        animationController.reverse();
+      });
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
+        key: appBarKey,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: kPrimaryColor),
@@ -95,6 +160,7 @@ class _NGOsLoginScreenState extends State<NGOsLoginScreen> {
                                     password: password.text,
                                     context: context);
                           }
+                          showOverLay();
                         },
                       ),
                       TextButton(
