@@ -197,7 +197,9 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   }
 
   Future getreportsInfo() async {
-    return await (context).read<FlutterFireAuthService>().getUserReports();
+    return await (context)
+        .read<FlutterFireAuthService>()
+        .ngoGetReports('ongoing');
   }
 
   @override
