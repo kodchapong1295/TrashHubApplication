@@ -191,7 +191,13 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   @override
   void initState() {
     ngoInfo = (context).read<FlutterFireAuthService>().getNGOInfo();
+    reportsInfo = getreportsInfo();
+
     super.initState();
+  }
+
+  Future getreportsInfo() async {
+    return await (context).read<FlutterFireAuthService>().getUserReports();
   }
 
   @override
