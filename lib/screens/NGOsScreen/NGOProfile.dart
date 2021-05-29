@@ -104,120 +104,125 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
             )),
       ),
       bottomNavigationBar: ButtomButton(),
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 25),
-                width: MediaQuery.of(context).size.width,
-                child: FutureBuilder(
-                  future: ngoInfo,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    final result = snapshot.data;
-                    // print(snapshot);
-                    return Row(children: [
-                      //
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          child: Image.network(result.imgUrl),
-                          width: 70,
-                          height: 70,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 25),
+                  width: MediaQuery.of(context).size.width,
+                  child: FutureBuilder(
+                    future: ngoInfo,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      final result = snapshot.data;
+                      // print(snapshot);
+                      return Row(children: [
+                        //
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: CircleAvatar(
+                              radius: 30.0,
+                              backgroundImage: NetworkImage(result.imgUrl),
+                              backgroundColor: Colors.transparent,
+                            ),
+                            width: 70,
+                            height: 70,
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 7,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              result.orgName,
-                              style: TextStyle(
-                                color: kPrimaryColor,
-                                fontSize: 24,
+                        Expanded(
+                          flex: 7,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                result.orgName,
+                                style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: 24,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Text('Completed Tasks: ${result.completeTask}',
-                                style: TextStyle(
-                                    color: kPrimaryColor, fontSize: 16)),
-                            Text('Ongoing Tasks: ${result.remainingTask}',
-                                style: TextStyle(
-                                    color: kPrimaryColor, fontSize: 16)),
-                          ],
-                        ),
-                      )
-                    ]);
-                  },
-                ),
-              ),
-
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: Text(
-                  'On-Going',
-                  style: TextStyle(
-                      color: kPrimaryColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: true,
-                  height: MediaQuery.of(context).size.height * 0.45,
-                  enlargeCenterPage: true,
-                ),
-                items: imageSliders,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                width: MediaQuery.of(context).size.width * 0.41,
-                height: 45,
-                child: TextButton.icon(
-                    style: TextButton.styleFrom(
-                        primary: Colors.white,
-                        backgroundColor: kPrimaryColor,
-                        textStyle: TextStyle(
-                          fontSize: 18,
-                        )),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => DialogShowStatus(
-                                topic: "Request Details",
-                                id: "1",
-                                date: "05/05/2021",
-                                status: "On-going",
-                                location: "BangCare",
-                                description: "trip.description",
-                              ));
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text('Completed Tasks: ${result.completeTask}',
+                                  style: TextStyle(
+                                      color: kPrimaryColor, fontSize: 16)),
+                              Text('Ongoing Tasks: ${result.remainingTask}',
+                                  style: TextStyle(
+                                      color: kPrimaryColor, fontSize: 16)),
+                            ],
+                          ),
+                        )
+                      ]);
                     },
-                    icon: Icon(Icons.info_outline),
-                    label: Text('See More')),
-              ),
-              // RequestHistoryList(),
-              // RequestHistoryList()
-            ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: 35,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    'On-Going',
+                    style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    height: MediaQuery.of(context).size.height * 0.45,
+                    enlargeCenterPage: true,
+                  ),
+                  items: imageSliders,
+                ),
+                SizedBox(
+                  height: 70,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Text(
+                    'Complete Tasks',
+                    style: TextStyle(
+                        color: kPrimaryColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: true,
+                    height: MediaQuery.of(context).size.height * 0.45,
+                    enlargeCenterPage: true,
+                  ),
+                  items: imageSliders,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                // RequestHistoryList(),
+                // RequestHistoryList()
+              ],
+            ),
           ),
         ),
       ),
