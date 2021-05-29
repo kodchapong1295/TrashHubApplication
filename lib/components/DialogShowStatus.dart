@@ -60,7 +60,7 @@ class DialogShowStatus extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Id    : ",
+                          "ID: ",
                           style: TextStyle(
                               fontSize: 16,
                               color: kPrimaryColor,
@@ -111,7 +111,7 @@ class DialogShowStatus extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          status,
+                          "${status[0].toUpperCase()}${status.substring(1)}",
                           style: TextStyle(
                             fontSize: 16,
                             color: kPrimaryColor,
@@ -133,7 +133,7 @@ class DialogShowStatus extends StatelessWidget {
                       height: 7,
                     ),
                     Text(
-                      responsible_by,
+                      responsible_by == "" ? "None" : responsible_by,
                       style: TextStyle(fontSize: 16, color: kPrimaryColor),
                     ),
                     SizedBox(
@@ -170,7 +170,7 @@ class DialogShowStatus extends StatelessWidget {
                       height: 7,
                     ),
                     Text(
-                      description,
+                      description == "" ? "None" : description,
                       style: TextStyle(fontSize: 16, color: kPrimaryColor),
                     ),
                   ],
