@@ -86,6 +86,14 @@ class FlutterFireAuthService {
   }
 
   // GET Method
+  Future<String> getNGOnameFromID(String id) async {
+    String ngoName;
+    dynamic snapshot = await _firestore.collection('ngo').doc(id).get().then(
+          (value) => ngoName = value.data()['orgName'],
+        );
+    return ngoName;
+  }
+
   Future<List<Report>> getUserReports() async {
     List<Report> reports = [];
     dynamic snapshots = await _firestore
