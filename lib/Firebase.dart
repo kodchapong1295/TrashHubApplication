@@ -40,7 +40,7 @@ class FlutterFireAuthService {
   }
 
   Future<void> increaseNgoOngoingReport(int i) async {
-    await _firestore.collection('report').doc(_getUserId()).update({
+    await _firestore.collection('ngo').doc(_getUserId()).update({
       'remainingTask': FieldValue.increment(i),
     });
   }
@@ -50,7 +50,7 @@ class FlutterFireAuthService {
       'status': "ongoing",
       'responsible_by': _getUserId(),
     });
-    increaseNgoOngoingReport(1);
+    await increaseNgoOngoingReport(1);
   }
 
   Future<String> createRequest(
