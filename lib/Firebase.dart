@@ -45,6 +45,12 @@ class FlutterFireAuthService {
     });
   }
 
+  Future<void> increaseNgoCompleteReport(int i) async {
+    await _firestore.collection('ngo').doc(_getUserId()).update({
+      'completeTask': FieldValue.increment(i),
+    });
+  }
+
   Future<void> ngoAcceptReport(String id) async {
     await _firestore.collection('report').doc(id).update({
       'status': "ongoing",
