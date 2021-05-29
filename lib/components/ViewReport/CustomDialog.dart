@@ -38,8 +38,8 @@ class CustomeDialog extends StatelessWidget {
         Container(
           height: height * .6,
           padding: EdgeInsets.only(
-            top: 35,
-            bottom: 16,
+            top: 20,
+            bottom: 0,
             left: 6,
             right: 16,
           ),
@@ -160,21 +160,45 @@ class CustomeDialog extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 90),
-              Center(
-                child: Container(
-                  width: 200,
-                  child: RoundedButton(
-                    title: "Accept",
-                    btnColor: kPrimaryColor,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      (context)
-                          .read<FlutterFireAuthService>()
-                          .ngoAcceptReport(no);
-                      Navigator.pop(context);
-                      // Navigator.pop(context);
-                    },
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 26),
+                child: Row(
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 110,
+                        child: RoundedButton(
+                          title: "Cancel",
+                          btnColor: Colors.white,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context);
+                            // Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 17,
+                    ),
+                    Center(
+                      child: Container(
+                        width: 110,
+                        child: RoundedButton(
+                          title: "Accept",
+                          btnColor: kPrimaryColor,
+                          textColor: Colors.white,
+                          onPressed: () {
+                            (context)
+                                .read<FlutterFireAuthService>()
+                                .ngoAcceptReport(no);
+                            Navigator.pop(context);
+                            // Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
