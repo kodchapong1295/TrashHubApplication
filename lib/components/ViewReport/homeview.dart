@@ -97,10 +97,10 @@ class _HomeViewState extends State<HomeView> {
                       children: <Widget>[
                         Container(
                           child: Image.network(trip.imgUrl),
-                          width: 60,
+                          width: width * .23,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 80),
+                          padding: const EdgeInsets.only(left: 40),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
