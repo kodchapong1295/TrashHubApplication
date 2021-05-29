@@ -159,7 +159,7 @@ class CustomeDialog extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 110),
+              SizedBox(height: 90),
               Center(
                 child: Container(
                   width: 200,

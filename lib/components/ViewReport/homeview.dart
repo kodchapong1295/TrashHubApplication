@@ -43,8 +43,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return FutureBuilder(
         // 4.)
         future: reports,
@@ -66,9 +64,12 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget buildTripCard(BuildContext context, int index, List<Trip> list) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     // print(list[1].location);
     final trip = list[index];
     return new Container(
+      width: width,
       child: InkWell(
         onTap: () {
           showDialog(
@@ -104,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 200,
+                                width: width * .44,
                                 child: Text(
                                   trip.location,
                                   style: TextStyle(
