@@ -100,8 +100,8 @@ class FlutterFireAuthService {
         .collection('report')
         .where("create_by", isEqualTo: _getUserId())
         .get()
-        .then((value) {
-      value.docs.forEach((element) {
+        .then((value) async {
+      value.docs.forEach((element) async {
         reports.add(Report(
           id: element.id,
           date: element
@@ -113,7 +113,9 @@ class FlutterFireAuthService {
           location: element.data()['location'],
           imgUrl: element.data()['imgUrl'],
           status: element.data()['status'],
-          responsible_by: element.data()['responsible_by'],
+          responsible_by: element.data()['responsible_by'] == ""
+              ? ""
+              : await getNGOnameFromID(element.data()['responsible_by']),
           description: element.data()['description'],
         ));
       });

@@ -153,36 +153,6 @@ List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
       .toList();
 }
 
-List<Widget> buildSeeMoreSliders(List<Report> reports, BuildContext context) {
-  print(reports);
-  return reports
-      .map((r) => Column(
-            children: [
-              Container(
-                child: Container(
-                  margin: EdgeInsets.all(5.0),
-                  child: Container(
-                    margin: EdgeInsets.all(20),
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    height: 45,
-                    child: TextButton.icon(
-                        style: TextButton.styleFrom(
-                            primary: Colors.white,
-                            backgroundColor: kPrimaryColor,
-                            textStyle: TextStyle(
-                              fontSize: 18,
-                            )),
-                        onPressed: null,
-                        icon: Icon(Icons.info_outline),
-                        label: Text('See More')),
-                  ),
-                ),
-              ),
-            ],
-          ))
-      .toList();
-}
-
 class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
@@ -191,7 +161,7 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   Future reportsInfo;
   Future userInfo;
-  final CarouselController _seeMoreController = CarouselController();
+  int _current = 0;
   @override
   void initState() {
     userInfo = (context).read<FlutterFireAuthService>().getGeneralUserInfo();
@@ -315,22 +285,47 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
                       print(snapshot.data);
                       final imglist = buildImageSliders(result, context);
-                      final seeMorelist = buildSeeMoreSliders(result, context);
+
                       if (result.isEmpty) {
                         return NoReportFound();
                       } else {
                         return Column(
                           children: [
                             CarouselSlider(
-                              carouselController: _seeMoreController,
                               options: CarouselOptions(
-                                autoPlay: true,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.55,
-                                enlargeCenterPage: true,
-                              ),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.55,
+                                  enlargeCenterPage: true,
+                                  enableInfiniteScroll: false,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _current = index;
+                                    });
+                                  }),
                               items: imglist,
                             ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: imglist.map((url) {
+                                int index = imglist.indexOf(url);
+                                return Container(
+                                  width: 8.0,
+                                  height: 8.0,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 2.0),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: _current == index
+                                        ? Color.fromRGBO(43, 165, 138, 0.9)
+                                        : Color.fromRGBO(43, 165, 138, 0.4),
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+
                             // SizedBox(
                             //   height: 10,
                             // ),
