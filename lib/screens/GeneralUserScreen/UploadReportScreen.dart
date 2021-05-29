@@ -138,11 +138,8 @@ class _UploadReportScreenState extends State<UploadReportScreen>
                     .read<FlutterFireAuthService>()
                     .createRequest(
                         imgUrl, inputLocation, inputDescription.text, context);
-                if (Navigator.of(context).canPop()) {
+                while (Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
-                  if (Navigator.of(context).canPop()) {
-                    Navigator.of(context).pop();
-                  }
                 }
 
                 Navigator.push(

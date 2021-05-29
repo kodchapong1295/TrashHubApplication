@@ -129,7 +129,7 @@ List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
                                   width:
                                       MediaQuery.of(context).size.width * 0.5,
                                   child: Text(
-                                    '${r.location.split(',').first.length >= 20 ? r.location.split(',').first.substring(0, 21) + "..." : r.location.split(',').first}',
+                                    '${r.location.split(',').first.length >= 21 ? r.location.split(',').first.substring(0, 21) + "..." : r.location.split(',').first}',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20.0,
@@ -216,10 +216,10 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
           icon: Icon(Icons.logout),
           onPressed: () {
             context.read<FlutterFireAuthService>().signOut();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AuthenMenu()),
-            );
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => AuthenMenu()),
+                (Route<dynamic> route) => false);
+            // if()
           },
         ),
         iconTheme: IconThemeData(

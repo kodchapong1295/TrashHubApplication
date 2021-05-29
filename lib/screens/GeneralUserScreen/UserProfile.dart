@@ -133,7 +133,7 @@ List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
                                   width:
                                       MediaQuery.of(context).size.width * 0.5,
                                   child: Text(
-                                    '${r.location.split(',').first.length >= 20 ? r.location.split(',').first.substring(0, 21) + "..." : r.location.split(',').first}',
+                                    '${r.location.split(',').first.length >= 21 ? r.location.split(',').first.substring(0, 21) + "..." : r.location.split(',').first}',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 20.0,
@@ -181,9 +181,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           icon: Icon(Icons.logout),
           onPressed: () async {
             await context.read<FlutterFireAuthService>().signOut();
-            if (Navigator.of(context).canPop()) {
-              Navigator.of(context).pop();
-            }
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => AuthenMenu()),
+                (Route<dynamic> route) => false);
+            // if()
           },
         ),
         iconTheme: IconThemeData(
@@ -280,7 +281,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           child: CircularProgressIndicator(),
                         );
                       }
-
                       final result = snapshot.data;
 
                       print(snapshot.data);
@@ -325,20 +325,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 );
                               }).toList(),
                             ),
-
-                            // SizedBox(
-                            //   height: 10,
-                            // ),
-                            // CarouselSlider(
-                            //   carouselController: _seeMoreController,
-                            //   options: CarouselOptions(
-                            //     autoPlay: true,
-                            //     height:
-                            //         MediaQuery.of(context).size.height * 0.4,
-                            //     enlargeCenterPage: true,
-                            //   ),
-                            //   items: seeMorelist,
-                            // ),
                           ],
                         );
                       }
