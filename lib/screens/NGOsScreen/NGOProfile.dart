@@ -8,6 +8,7 @@ import 'package:trashhub/models/NGO.dart';
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/models/Report.dart';
+import 'package:trashhub/screens/AuthenMenu.dart';
 import 'package:trashhub/screens/NGOsScreen/ViewReportNGO.dart';
 
 List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
@@ -202,17 +203,23 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
         .ngoGetReports('ongoing');
   }
 
+  void refreshScreen() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.logout),
           onPressed: () {
             context.read<FlutterFireAuthService>().signOut();
-            if (Navigator.of(context).canPop()) {
-              Navigator.of(context).pop();
-            }
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AuthenMenu()),
+            );
           },
         ),
         iconTheme: IconThemeData(
@@ -226,7 +233,9 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
               fontSize: 20,
             )),
       ),
-      bottomNavigationBar: ButtomButton(),
+      bottomNavigationBar: ButtomButton(
+        refreshScreen: refreshScreen,
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -491,8 +500,10 @@ class NoReportFound extends StatelessWidget {
 
 class ButtomButton extends StatelessWidget {
   const ButtomButton({
+    this.refreshScreen,
     Key key,
   }) : super(key: key);
+  final Function refreshScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -512,7 +523,9 @@ class ButtomButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ViewReport()),
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ViewReport(refreshScreen: refreshScreen)),
             );
           },
         ));

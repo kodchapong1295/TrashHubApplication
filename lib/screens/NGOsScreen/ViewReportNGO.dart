@@ -3,8 +3,12 @@ import 'package:trashhub/components/ViewReport/homeview.dart';
 import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:trashhub/constants.dart';
+import 'package:trashhub/screens/AuthenMenu.dart';
+import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 
 class ViewReport extends StatefulWidget {
+  Function refreshScreen;
+  ViewReport({this.refreshScreen});
   @override
   _ViewReportState createState() => _ViewReportState();
 }
@@ -37,8 +41,11 @@ class _ViewReportState extends State<ViewReport> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           color: kPrimaryColor,
-          onPressed: () {
-            Navigator.of(context).pop(context);
+          onPressed: () async {
+            await Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => AuthenMenu()),
+            );
           },
         ),
         title: (Text(
@@ -54,7 +61,9 @@ class _ViewReportState extends State<ViewReport> {
       ),
       body: RefreshIndicator(
         key: refreshKey,
-        child: HomeView(),
+        child: HomeView(
+          refreshScreen: widget.refreshScreen,
+        ),
         onRefresh: refreshList,
       ),
     );

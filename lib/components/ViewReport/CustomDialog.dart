@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/components/RoundedButton.dart';
+import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
+import 'package:trashhub/screens/NGOsScreen/ViewReportNGO.dart';
 import 'Trip.dart';
 import 'package:trashhub/constants.dart';
 
@@ -8,11 +10,12 @@ import 'package:provider/provider.dart';
 
 class CustomeDialog extends StatelessWidget {
   final String topic, title, description, button, location, date;
-
+  final Function refreshScreen;
   final String no;
 
   CustomeDialog(
       {this.topic,
+      this.refreshScreen,
       this.description,
       this.button,
       this.no,
@@ -211,7 +214,13 @@ class CustomeDialog extends StatelessWidget {
                           (context)
                               .read<FlutterFireAuthService>()
                               .ngoAcceptReport(no);
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
+                          refreshScreen();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewReport()),
+                          );
                           // Navigator.pop(context);
                         },
                       ),

@@ -6,6 +6,8 @@ import 'package:trashhub/models/Report.dart';
 import 'Trip.dart';
 
 class HomeView extends StatefulWidget {
+  HomeView({this.refreshScreen});
+  final Function refreshScreen;
   @override
   _HomeViewState createState() => _HomeViewState();
 }
@@ -71,16 +73,18 @@ class _HomeViewState extends State<HomeView> {
     return new Container(
       width: width,
       child: InkWell(
-        onTap: () {
-          showDialog(
+        onTap: () async {
+          await showDialog(
               context: context,
               builder: (context) => CustomeDialog(
+                    refreshScreen: widget.refreshScreen,
                     topic: "Request Details",
                     no: trip.id,
                     date: trip.date,
                     location: trip.location,
                     description: trip.description,
                   ));
+          setState(() {});
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
