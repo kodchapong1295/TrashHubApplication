@@ -209,7 +209,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   Future getCompleteInfo() async {
     return await (context)
         .read<FlutterFireAuthService>()
-        .ngoGetReports('Completed');
+        .ngoGetReports('completed');
   }
 
   void refreshScreen() {
