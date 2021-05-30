@@ -187,6 +187,7 @@ class NGOProfileScreen extends StatefulWidget {
 class _NGOProfileScreenState extends State<NGOProfileScreen> {
   Future ngoInfo;
   Future reportsInfo;
+  Future completeInfo;
   int _current = 0;
 
   final CarouselController _seeMoreController = CarouselController();
@@ -194,6 +195,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   void initState() {
     ngoInfo = (context).read<FlutterFireAuthService>().getNGOInfo();
     reportsInfo = getreportsInfo();
+    completeInfo = getCompleteInfo();
 
     super.initState();
   }
@@ -202,6 +204,12 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
     return await (context)
         .read<FlutterFireAuthService>()
         .ngoGetReports('ongoing');
+  }
+
+  Future getCompleteInfo() async {
+    return await (context)
+        .read<FlutterFireAuthService>()
+        .ngoGetReports('Completed');
   }
 
   void refreshScreen() {
@@ -390,7 +398,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                 ),
                 Container(
                   child: FutureBuilder(
-                      future: reportsInfo,
+                      future: completeInfo,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -412,13 +420,19 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                               CarouselSlider(
                                 carouselController: _seeMoreController,
                                 options: CarouselOptions(
-                                  autoPlay: true,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.55,
-                                  enlargeCenterPage: true,
-                                ),
+                                    autoPlay: true,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.55,
+                                    enlargeCenterPage: true,
+                                    enableInfiniteScroll: false,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _current = index;
+                                      });
+                                    }),
                                 items: imglist,
                               ),
+
                               // SizedBox(
                               //   height: 10,
                               // ),
