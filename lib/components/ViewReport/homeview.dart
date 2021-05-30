@@ -43,6 +43,13 @@ class _HomeViewState extends State<HomeView> {
     return list;
   }
 
+  void refresh() {
+    widget.refreshScreen();
+    setState(() {
+      reports = getReports();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -54,18 +61,23 @@ class _HomeViewState extends State<HomeView> {
           }
           // print(snapshot.data);
           final List<Trip> list = buildListTrip(snapshot.data);
-          // print(list);
+          Function refresh = () {
+            setState(() {
+              reports = getReports();
+            });
+          };
           return Container(
             child: new ListView.builder(
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index) =>
-                  buildTripCard(context, index, list),
+                  buildTripCard(context, index, list, refresh),
             ),
           );
         });
   }
 
-  Widget buildTripCard(BuildContext context, int index, List<Trip> list) {
+  Widget buildTripCard(
+      BuildContext context, int index, List<Trip> list, Function refresh) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     // print(list[1].location);
@@ -83,8 +95,7 @@ class _HomeViewState extends State<HomeView> {
                     date: trip.date,
                     location: trip.location,
                     description: trip.description,
-                  ));
-          setState(() {});
+                  )).then((value) => refresh());
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
