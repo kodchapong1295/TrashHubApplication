@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trashhub/components/DialogShowStatus.dart';
+import 'package:trashhub/components/ViewReport/DialogShowOngoing.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -19,7 +20,7 @@ List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
               onTap: () async {
                 showDialog(
                     context: context,
-                    builder: (context) => DialogShowStatus(
+                    builder: (context) => DialogShowOngoing(
                           topic: "Request Details",
                           id: r.id,
                           date: r.date,
