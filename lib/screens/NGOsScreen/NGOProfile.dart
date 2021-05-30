@@ -351,7 +351,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                               CarouselSlider(
                                 carouselController: _seeMoreController,
                                 options: CarouselOptions(
-                                    autoPlay: true,
+                                    autoPlay: false,
                                     height: MediaQuery.of(context).size.height *
                                         0.55,
                                     enlargeCenterPage: true,
@@ -423,7 +423,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                               CarouselSlider(
                                 carouselController: _seeMoreController,
                                 options: CarouselOptions(
-                                    autoPlay: true,
+                                    autoPlay: false,
                                     height: MediaQuery.of(context).size.height *
                                         0.55,
                                     enlargeCenterPage: true,

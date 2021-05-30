@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/components/RoundedButton.dart';
 import 'package:trashhub/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:trashhub/Firebase.dart';
 
 class DialogShowOngoing extends StatelessWidget {
   final String topic,
@@ -204,7 +206,10 @@ class DialogShowOngoing extends StatelessWidget {
                     fontSize: 20,
                     color: kPrimaryColor,
                     fontWeight: FontWeight.bold)),
-            onPressed: () {
+            onPressed: () async {
+              await (context)
+                  .read<FlutterFireAuthService>()
+                  .ngoCompleteReport(id);
               Navigator.pop(context);
             },
           ),
