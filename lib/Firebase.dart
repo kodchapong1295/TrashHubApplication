@@ -59,6 +59,14 @@ class FlutterFireAuthService {
     await increaseNgoOngoingReport(1);
   }
 
+  Future<void> ngoCompleteReport(String id) async {
+    await _firestore.collection('report').doc(id).update({
+      'status': "completed",
+      'responsible_by': _getUserId(),
+    });
+    await increaseNgoOngoingReport(1);
+  }
+
   Future<String> createRequest(
     String imgUrl,
     String location,
