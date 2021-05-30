@@ -187,6 +187,7 @@ class NGOProfileScreen extends StatefulWidget {
 class _NGOProfileScreenState extends State<NGOProfileScreen> {
   Future ngoInfo;
   Future reportsInfo;
+  int _current = 0;
 
   final CarouselController _seeMoreController = CarouselController();
   @override
@@ -339,13 +340,19 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                               CarouselSlider(
                                 carouselController: _seeMoreController,
                                 options: CarouselOptions(
-                                  autoPlay: true,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.55,
-                                  enlargeCenterPage: true,
-                                ),
+                                    autoPlay: true,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.55,
+                                    enlargeCenterPage: true,
+                                    enableInfiniteScroll: false,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _current = index;
+                                      });
+                                    }),
                                 items: imglist,
                               ),
+
                               // SizedBox(
                               //   height: 10,
                               // ),
@@ -398,7 +405,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                         final seeMorelist =
                             buildSeeMoreSliders(result, context);
                         if (result.isEmpty) {
-                          return NoReportFound();
+                          return NoCompleteFound();
                         } else {
                           return Column(
                             children: [
@@ -444,6 +451,46 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   }
 }
 
+class NoCompleteFound extends StatelessWidget {
+  const NoCompleteFound({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.55,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Icon(
+              Icons.description_rounded,
+              color: Colors.grey[400],
+              size: MediaQuery.of(context).size.height * 0.2,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+            Text('No Complete Task',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 34,
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.080,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class NoReportFound extends StatelessWidget {
   const NoReportFound({
     Key key,
@@ -468,7 +515,7 @@ class NoReportFound extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.01,
             ),
-            Text('No Request Found',
+            Text('No Report Found',
                 style: TextStyle(
                   color: Colors.grey[700],
                   fontWeight: FontWeight.bold,
@@ -477,7 +524,7 @@ class NoReportFound extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.080,
             ),
-            Text('Add New Request below',
+            Text('Press View Report below',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[600],
