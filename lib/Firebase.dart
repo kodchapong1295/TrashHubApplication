@@ -64,7 +64,8 @@ class FlutterFireAuthService {
       'status': "completed",
       'responsible_by': _getUserId(),
     });
-    await increaseNgoOngoingReport(1);
+    await increaseNgoOngoingReport(-1);
+    await increaseNgoCompleteReport(1);
   }
 
   Future<String> createRequest(
