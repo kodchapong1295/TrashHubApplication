@@ -340,9 +340,12 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
 
                         final result = snapshot.data;
                         Function refresh = () {
-                          print('tetetetetetetetete');
                           setState(() {
+                            ngoInfo = (context)
+                                .read<FlutterFireAuthService>()
+                                .getNGOInfo();
                             reportsInfo = getreportsInfo();
+                            completeInfo = getCompleteInfo();
                           });
                         };
                         print(snapshot.data);
