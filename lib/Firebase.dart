@@ -103,6 +103,11 @@ class FlutterFireAuthService {
   }
 
   Future<List<Report>> getUserReports() async {
+    print('get repoert is call');
+    print('get repoert is call');
+    print('get repoert is call');
+    print('get repoert is call');
+    print('get repoert is call');
     List<Report> reports = [];
     dynamic snapshots = await _firestore
         .collection('report')
