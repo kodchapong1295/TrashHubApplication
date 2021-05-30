@@ -214,13 +214,13 @@ class CustomeDialog extends StatelessWidget {
                           (context)
                               .read<FlutterFireAuthService>()
                               .ngoAcceptReport(no);
-                          // Navigator.pop(context);
+                          Navigator.pop(context);
                           refreshScreen();
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ViewReport()),
-                          );
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => ViewReport()),
+                          // );
                           // Navigator.pop(context);
                         },
                       ),

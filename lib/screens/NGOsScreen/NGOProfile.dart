@@ -214,7 +214,9 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   }
 
   void refreshScreen() {
-    setState(() {});
+    setState(() {
+      reportsInfo = getreportsInfo();
+    });
   }
 
   @override

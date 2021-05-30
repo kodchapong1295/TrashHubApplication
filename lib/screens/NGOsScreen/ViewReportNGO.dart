@@ -42,10 +42,11 @@ class _ViewReportState extends State<ViewReport> {
           icon: Icon(Icons.arrow_back_ios),
           color: kPrimaryColor,
           onPressed: () async {
-            await Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => AuthenMenu()),
-            );
+            // await Navigator.pushReplacement(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => AuthenMenu()),
+            // );
+            Navigator.pop(context);
           },
         ),
         title: (Text(
