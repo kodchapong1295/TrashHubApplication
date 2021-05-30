@@ -108,27 +108,23 @@ class FlutterFireAuthService {
     dynamic snapshots = await _firestore
         .collection('report')
         .where("create_by", isEqualTo: _getUserId())
-        .get()
-        .then((value) async {
-      value.docs.forEach((element) async {
-        reports.add(Report(
-          id: element.id,
-          date: element
-              .data()['create_date']
-              .toDate()
-              .toString()
-              .split('.')
-              .first,
-          location: element.data()['location'],
-          imgUrl: element.data()['imgUrl'],
-          status: element.data()['status'],
-          responsible_by: element.data()['responsible_by'] == ""
-              ? ""
-              : await getNGOnameFromID(element.data()['responsible_by']),
-          description: element.data()['description'],
-        ));
-      });
-    });
+        .get();
+    // .then((value) async {
+    for (dynamic element in snapshots.docs) {
+      reports.add(Report(
+        id: element.id,
+        date:
+            element.data()['create_date'].toDate().toString().split('.').first,
+        location: element.data()['location'],
+        imgUrl: element.data()['imgUrl'],
+        status: element.data()['status'],
+        responsible_by: element.data()['responsible_by'] == ""
+            ? ""
+            : await getNGOnameFromID(element.data()['responsible_by']),
+        description: element.data()['description'],
+      ));
+    }
+
     return reports;
   }
 

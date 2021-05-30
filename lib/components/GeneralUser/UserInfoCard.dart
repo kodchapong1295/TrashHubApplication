@@ -53,7 +53,7 @@ class UserInfoCard extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  Text('Total report : ${(result.totalReport)}',
+                  Text('Total reports : ${(result.totalReport)}',
                       style: TextStyle(color: kPrimaryColor, fontSize: 18))
                 ],
               ),

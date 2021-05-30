@@ -33,8 +33,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   }
 
   Future getreportsInfo() async {
-    print('get repoert is call');
-    return await (context).read<FlutterFireAuthService>().getUserReports();
+    dynamic info =
+        await (context).read<FlutterFireAuthService>().getUserReports();
+
+    return await info;
   }
 
   @override
@@ -74,7 +76,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       ),
       bottomNavigationBar: ButtomButton(
           icon: Icon(Icons.camera_alt_rounded),
-          label: "NEW REQUEST",
+          label: "NEW REPORT",
           screen: UploadReportScreen()),
       body: SafeArea(
         child: Container(

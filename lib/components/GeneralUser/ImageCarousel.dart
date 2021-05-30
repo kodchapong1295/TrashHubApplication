@@ -218,43 +218,49 @@ class ImageCarousel extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          final result = snapshot.data;
+          if (snapshot.connectionState == ConnectionState.done) {
+            final result = snapshot.data;
 
-          final imglist = buildImageSliders(result, context);
+            final imglist = buildImageSliders(result, context);
 
-          if (result.isEmpty) {
-            return NoReportFound();
+            if (result.isEmpty) {
+              return NoReportFound();
+            } else {
+              return Column(
+                children: [
+                  CarouselSlider(
+                    options: carouselOptions,
+                    items: imglist,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  _current != 0
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: imglist.map((url) {
+                            int index = imglist.indexOf(url);
+                            return Container(
+                              width: 8.0,
+                              height: 8.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _current == index
+                                    ? Color.fromRGBO(43, 165, 138, 0.9)
+                                    : Color.fromRGBO(43, 165, 138, 0.4),
+                              ),
+                            );
+                          }).toList(),
+                        )
+                      : Container(),
+                ],
+              );
+            }
           } else {
-            return Column(
-              children: [
-                CarouselSlider(
-                  options: carouselOptions,
-                  items: imglist,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                _current != 0
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: imglist.map((url) {
-                          int index = imglist.indexOf(url);
-                          return Container(
-                            width: 8.0,
-                            height: 8.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 2.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _current == index
-                                  ? Color.fromRGBO(43, 165, 138, 0.9)
-                                  : Color.fromRGBO(43, 165, 138, 0.4),
-                            ),
-                          );
-                        }).toList(),
-                      )
-                    : Container(),
-              ],
+            return Center(
+              child: CircularProgressIndicator(),
             );
           }
         });

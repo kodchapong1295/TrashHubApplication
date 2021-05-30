@@ -13,7 +13,7 @@ class MyRequestsCard extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0, 5, 0, 20),
       width: MediaQuery.of(context).size.width * 0.8,
       child: Text(
-        'My Requests',
+        'My Reports',
         style: TextStyle(
             color: kPrimaryColor, fontSize: 24, fontWeight: FontWeight.bold),
         textAlign: TextAlign.start,
