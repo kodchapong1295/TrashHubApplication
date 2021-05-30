@@ -12,13 +12,14 @@ import 'package:trashhub/models/Report.dart';
 import 'package:trashhub/screens/AuthenMenu.dart';
 import 'package:trashhub/screens/NGOsScreen/ViewReportNGO.dart';
 
-List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
+List<Widget> buildImageSliders(
+    List<Report> reports, BuildContext context, Function refresh) {
   print(reports);
   return reports
       .map((r) => Container(
             child: GestureDetector(
               onTap: () async {
-                showDialog(
+                await showDialog(
                     context: context,
                     builder: (context) => DialogShowOngoing(
                           topic: "Request Details",
@@ -28,7 +29,7 @@ List<Widget> buildImageSliders(List<Report> reports, BuildContext context) {
                           location: r.location,
                           description: r.description,
                           responsible_by: r.responsible_by,
-                        ));
+                        )).then((value) => refresh());
               },
               child: Container(
                 margin: EdgeInsets.all(5.0),
@@ -338,11 +339,16 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                         }
 
                         final result = snapshot.data;
-
+                        Function refresh = () {
+                          print('tetetetetetetetete');
+                          setState(() {
+                            reportsInfo = getreportsInfo();
+                          });
+                        };
                         print(snapshot.data);
-                        final imglist = buildImageSliders(result, context);
-                        final seeMorelist =
-                            buildSeeMoreSliders(result, context);
+                        final imglist =
+                            buildImageSliders(result, context, refresh);
+
                         if (result.isEmpty) {
                           return NoReportFound();
                         } else {
@@ -410,9 +416,14 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                         }
 
                         final result = snapshot.data;
-
+                        final Function refresh = () {
+                          setState(() {
+                            completeInfo = getCompleteInfo();
+                          });
+                        };
                         print(snapshot.data);
-                        final imglist = buildImageSliders(result, context);
+                        final imglist =
+                            buildImageSliders(result, context, refresh);
                         final seeMorelist =
                             buildSeeMoreSliders(result, context);
                         if (result.isEmpty) {

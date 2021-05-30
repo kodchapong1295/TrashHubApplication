@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
           }
           // print(snapshot.data);
           final List<Trip> list = buildListTrip(snapshot.data);
-          Function refresh = () {
+          final Function refresh = () {
             setState(() {
               reports = getReports();
             });
