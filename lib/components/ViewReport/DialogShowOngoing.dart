@@ -203,7 +203,7 @@ class DialogShowOngoing extends StatelessWidget {
           child: TextButton(
             child: Text("Complete",
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     color: kPrimaryColor,
                     fontWeight: FontWeight.bold)),
             onPressed: () async {
