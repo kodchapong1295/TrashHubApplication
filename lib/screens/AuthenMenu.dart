@@ -206,20 +206,6 @@ class AuthenMenu extends StatelessWidget {
                               );
                             },
                           ),
-                          TextButton(
-                            child: Text(
-                              'Do not press it !!!!',
-                              style: Theme.of(context).textTheme.bodyText1,
-                              textAlign: TextAlign.center,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NGOProfileScreen()),
-                              );
-                            },
-                          ),
                         ],
                       ),
                     ),

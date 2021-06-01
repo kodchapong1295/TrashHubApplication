@@ -32,18 +32,19 @@ List<Widget> buildImageSliders(
                             description: r.description,
                             responsible_by: r.responsible_by,
                           )).then((value) => refresh());
+                } else {
+                  await showDialog(
+                      context: context,
+                      builder: (context) => DialogComplete(
+                            topic: "Completed Details",
+                            id: r.id,
+                            date: r.date,
+                            status: r.status,
+                            location: r.location,
+                            description: r.description,
+                            responsible_by: r.responsible_by,
+                          )).then((value) => refresh());
                 }
-                await showDialog(
-                    context: context,
-                    builder: (context) => DialogComplete(
-                          topic: "Completed Details",
-                          id: r.id,
-                          date: r.date,
-                          status: r.status,
-                          location: r.location,
-                          description: r.description,
-                          responsible_by: r.responsible_by,
-                        )).then((value) => refresh());
               },
               child: Container(
                 margin: EdgeInsets.all(5.0),
