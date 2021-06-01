@@ -205,7 +205,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
   Future ngoInfo;
   Future reportsInfo;
   Future completeInfo;
-  int _current = 0;
+  int _current;
 
   final CarouselController _seeMoreController = CarouselController();
   @override
@@ -387,20 +387,32 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                                     }),
                                 items: imglist,
                               ),
-
-                              // SizedBox(
-                              //   height: 10,
-                              // ),
-                              // CarouselSlider(
-                              //   carouselController: _seeMoreController,
-                              //   options: CarouselOptions(
-                              //     autoPlay: true,
-                              //     height:
-                              //         MediaQuery.of(context).size.height * 0.4,
-                              //     enlargeCenterPage: true,
-                              //   ),
-                              //   items: seeMorelist,
-                              // ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              _current != -1
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: imglist.map((url) {
+                                        int index = imglist.indexOf(url);
+                                        return Container(
+                                          width: 8.0,
+                                          height: 8.0,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: _current == index
+                                                ? Color.fromRGBO(
+                                                    43, 165, 138, 0.9)
+                                                : Color.fromRGBO(
+                                                    43, 165, 138, 0.4),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    )
+                                  : Container(),
                             ],
                           );
                         }
@@ -464,20 +476,29 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                                     }),
                                 items: imglist,
                               ),
-
-                              // SizedBox(
-                              //   height: 10,
-                              // ),
-                              // CarouselSlider(
-                              //   carouselController: _seeMoreController,
-                              //   options: CarouselOptions(
-                              //     autoPlay: true,
-                              //     height:
-                              //         MediaQuery.of(context).size.height * 0.4,
-                              //     enlargeCenterPage: true,
-                              //   ),
-                              //   items: seeMorelist,
-                              // ),
+                              _current != -1
+                                  ? Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: imglist.map((url) {
+                                        int index = imglist.indexOf(url);
+                                        return Container(
+                                          width: 8.0,
+                                          height: 8.0,
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 2.0),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: _current == index
+                                                ? Color.fromRGBO(
+                                                    43, 165, 138, 0.9)
+                                                : Color.fromRGBO(
+                                                    43, 165, 138, 0.4),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    )
+                                  : Container(),
                             ],
                           );
                         }
