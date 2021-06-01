@@ -53,9 +53,11 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+
         // 4.)
         future: reports,
         builder: (context, snapshot) {
+          final result = snapshot.data;
           if (!snapshot.hasData) {
             return CircularProgressIndicator();
           }
@@ -66,13 +68,17 @@ class _HomeViewState extends State<HomeView> {
               reports = getReports();
             });
           };
-          return Container(
-            child: new ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (BuildContext context, int index) =>
-                  buildTripCard(context, index, list, refresh),
-            ),
-          );
+          if (result.isEmpty) {
+            return NoViewReportFound();
+          } else {
+            return Container(
+              child: new ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    buildTripCard(context, index, list, refresh),
+              ),
+            );
+          }
         });
   }
 
@@ -147,6 +153,49 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class NoViewReportFound extends StatelessWidget {
+  const NoViewReportFound({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.55,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            Icon(
+              Icons.description_rounded,
+              color: Colors.grey[400],
+              size: MediaQuery.of(context).size.height * 0.2,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+            Text('No Report Found',
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 34,
+                )),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.080,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.01,
+            ),
+          ],
         ),
       ),
     );
