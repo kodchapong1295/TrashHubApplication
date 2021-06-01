@@ -39,6 +39,9 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo',
           theme: ThemeData(
             fontFamily: 'Open Sans',
+            buttonBarTheme: ButtonBarThemeData(
+              alignment: MainAxisAlignment.center,
+            ),
             primaryColor: Colors.white,
             textTheme: TextTheme(
               headline1: TextStyle(

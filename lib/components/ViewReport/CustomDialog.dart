@@ -12,6 +12,7 @@ class CustomeDialog extends StatelessWidget {
   final String topic, title, description, button, location, date;
   final Function refreshScreen;
   final String no;
+  final horizontalPadding = 85;
 
   CustomeDialog(
       {this.topic,
@@ -178,58 +179,52 @@ class CustomeDialog extends StatelessWidget {
           // ])
         ],
       ),
+      // actionsPadding: EdgeInsets.only(
+      //     right: MediaQuery.of(context).size.width / 2 - horizontalPadding * 2),
       actions: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 29, bottom: 25),
-              child: Row(
-                children: [
-                  Center(
-                    child: Container(
-                      width: 110,
-                      child: RoundedButton(
-                        title: "Cancel",
-                        btnColor: Colors.white,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          Navigator.pop(context);
-                          // Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 17,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 110,
-                      child: RoundedButton(
-                        title: "Accept",
-                        btnColor: kPrimaryColor,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          (context)
-                              .read<FlutterFireAuthService>()
-                              .ngoAcceptReport(no);
-                          Navigator.pop(context);
-                          refreshScreen();
-                          // Navigator.pushReplacement(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => ViewReport()),
-                          // );
-                          // Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 110,
+                child: RoundedButton(
+                  title: "Cancel",
+                  btnColor: Colors.white,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                  },
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                width: 17,
+              ),
+              Container(
+                width: 110,
+                child: RoundedButton(
+                  title: "Accept",
+                  btnColor: kPrimaryColor,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    (context)
+                        .read<FlutterFireAuthService>()
+                        .ngoAcceptReport(no);
+                    Navigator.pop(context);
+                    refreshScreen();
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => ViewReport()),
+                    // );
+                    // Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );

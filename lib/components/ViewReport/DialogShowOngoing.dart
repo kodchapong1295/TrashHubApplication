@@ -199,7 +199,7 @@ class DialogShowOngoing extends StatelessWidget {
       actions: [
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          width: 110,
+          width: 120,
           child: RoundedButton(
             title: "Complete",
             btnColor: kPrimaryColor,
