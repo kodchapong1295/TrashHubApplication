@@ -95,31 +95,6 @@ class CustomeDialog extends StatelessWidget {
                     SizedBox(
                       height: 7,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "Status : ",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      "Responsible NGO :",
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: kPrimaryColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 7,
-                    ),
                     Text(
                       "Location : ",
                       style: TextStyle(
