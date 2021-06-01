@@ -180,46 +180,48 @@ class CustomeDialog extends StatelessWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 110,
-                child: RoundedButton(
-                  title: "Cancel",
-                  btnColor: Colors.white,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.pop(context);
-                  },
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 110,
+                  child: RoundedButton(
+                    title: "Cancel",
+                    btnColor: Colors.white,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 17,
-              ),
-              Container(
-                width: 110,
-                child: RoundedButton(
-                  title: "Accept",
-                  btnColor: kPrimaryColor,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    (context)
-                        .read<FlutterFireAuthService>()
-                        .ngoAcceptReport(no);
-                    Navigator.pop(context);
-                    refreshScreen();
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => ViewReport()),
-                    // );
-                    // Navigator.pop(context);
-                  },
+                SizedBox(
+                  width: 17,
                 ),
-              ),
-            ],
+                Container(
+                  width: 110,
+                  child: RoundedButton(
+                    title: "Accept",
+                    btnColor: kPrimaryColor,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      (context)
+                          .read<FlutterFireAuthService>()
+                          .ngoAcceptReport(no);
+                      Navigator.pop(context);
+                      refreshScreen();
+                      // Navigator.pushReplacement(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => ViewReport()),
+                      // );
+                      // Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
