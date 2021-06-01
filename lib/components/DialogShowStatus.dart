@@ -196,19 +196,17 @@ class DialogShowStatus extends StatelessWidget {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          width: 100,
-          child: TextButton(
-            child: Text("Okay",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: kPrimaryColor,
-                    fontWeight: FontWeight.bold)),
-            onPressed: () {
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          width: 120,
+          child: RoundedButton(
+            title: "Ok",
+            btnColor: kPrimaryColor,
+            textColor: Colors.white,
+            onPressed: () async {
               Navigator.pop(context);
             },
           ),
-        ),
+        )
       ],
     );
   }
