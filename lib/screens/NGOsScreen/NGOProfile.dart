@@ -229,9 +229,11 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
         .ngoGetReports('completed');
   }
 
-  void refreshScreen() {
+  void refresh() {
     setState(() {
+      ngoInfo = (context).read<FlutterFireAuthService>().getNGOInfo();
       reportsInfo = getreportsInfo();
+      completeInfo = getCompleteInfo();
     });
   }
 
@@ -262,7 +264,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
             )),
       ),
       bottomNavigationBar: ButtomButton(
-        refreshScreen: refreshScreen,
+        refreshScreen: refresh,
       ),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -354,15 +356,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                         }
 
                         final result = snapshot.data;
-                        Function refresh = () {
-                          setState(() {
-                            ngoInfo = (context)
-                                .read<FlutterFireAuthService>()
-                                .getNGOInfo();
-                            reportsInfo = getreportsInfo();
-                            completeInfo = getCompleteInfo();
-                          });
-                        };
+
                         print(snapshot.data);
                         final imglist =
                             buildImageSliders(result, context, refresh);
@@ -446,11 +440,7 @@ class _NGOProfileScreenState extends State<NGOProfileScreen> {
                         }
 
                         final result = snapshot.data;
-                        final Function refresh = () {
-                          setState(() {
-                            completeInfo = getCompleteInfo();
-                          });
-                        };
+
                         print(snapshot.data);
                         final imglist =
                             buildImageSliders(result, context, refresh);

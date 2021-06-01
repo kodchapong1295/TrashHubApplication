@@ -47,6 +47,7 @@ class _ViewReportState extends State<ViewReport> {
             //   MaterialPageRoute(builder: (context) => AuthenMenu()),
             // );
             Navigator.pop(context);
+            widget.refreshScreen();
           },
         ),
         title: (Text(
