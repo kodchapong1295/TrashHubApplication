@@ -12,7 +12,6 @@ import 'package:trashhub/screens/NGOsScreen/ViewReportNGO.dart';
 
 List<Widget> buildImageSliders(
     List<Report> reports, BuildContext context, Function refresh) {
-  print(reports);
   return reports
       .map((r) => Container(
             child: GestureDetector(

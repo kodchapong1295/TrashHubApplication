@@ -159,24 +159,9 @@ class CustomeDialog extends StatelessWidget {
               ),
             ],
           ),
-          // Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          //   Container(
-          //     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          //     width: 150,
-          //     child: RoundedButton(
-          //       title: "Okay",
-          //       btnColor: kPrimaryColor,
-          //       textColor: Colors.white,
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //     ),
-          //   ),
-          // ])
         ],
       ),
-      // actionsPadding: EdgeInsets.only(
-      //     right: MediaQuery.of(context).size.width / 2 - horizontalPadding * 2),
+
       actions: [
         Padding(
           padding: const EdgeInsets.only(bottom: 20),
@@ -211,12 +196,6 @@ class CustomeDialog extends StatelessWidget {
                           .ngoAcceptReport(no);
                       Navigator.pop(context);
                       refreshScreen();
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => ViewReport()),
-                      // );
-                      // Navigator.pop(context);
                     },
                   ),
                 ),

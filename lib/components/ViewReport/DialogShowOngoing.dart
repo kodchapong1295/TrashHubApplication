@@ -148,9 +148,7 @@ class DialogShowOngoing extends StatelessWidget {
                           color: kPrimaryColor,
                           fontWeight: FontWeight.bold),
                     ),
-                    // SizedBox(
-                    //   height: 2,
-                    // ),
+
                     Text(
                       location,
                       style: TextStyle(
@@ -180,20 +178,6 @@ class DialogShowOngoing extends StatelessWidget {
               ),
             ],
           ),
-          // Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          //   Container(
-          //     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          //     width: 150,
-          //     child: RoundedButton(
-          //       title: "Okay",
-          //       btnColor: kPrimaryColor,
-          //       textColor: Colors.white,
-          //       onPressed: () {
-          //         Navigator.pop(context);
-          //       },
-          //     ),
-          //   ),
-          // ])
         ],
       ),
       actions: [

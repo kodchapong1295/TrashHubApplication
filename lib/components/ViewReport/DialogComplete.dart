@@ -118,26 +118,6 @@ class DialogComplete extends StatelessWidget {
                         )
                       ],
                     ),
-                    // SizedBox(
-                    //   height: 7,
-                    // ),
-                    // Text(
-                    //   "Responsible NGO :",
-                    //   style: TextStyle(
-                    //       fontSize: 16,
-                    //       color: kPrimaryColor,
-                    //       fontWeight: FontWeight.bold),
-                    // ),
-                    // SizedBox(
-                    //   height: 7,
-                    // ),
-                    // Text(
-                    //   responsible_by == "" ? "None" : responsible_by,
-                    //   style: TextStyle(fontSize: 16, color: kPrimaryColor),
-                    // ),
-                    // SizedBox(
-                    //   height: 7,
-                    // ),
                     Text(
                       "Location : ",
                       style: TextStyle(
