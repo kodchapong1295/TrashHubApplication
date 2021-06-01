@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:trashhub/models/GeneralUser.dart';
 import 'package:trashhub/screens/GeneralUserScreen/UserProfile.dart';
 import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
-import 'package:trashhub/models/GeneralUser.dart';
 import 'package:trashhub/models/NGO.dart';
 import 'package:trashhub/models/Report.dart';
 
