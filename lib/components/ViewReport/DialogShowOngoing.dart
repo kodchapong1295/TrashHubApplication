@@ -199,13 +199,11 @@ class DialogShowOngoing extends StatelessWidget {
       actions: [
         Container(
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          width: 100,
-          child: TextButton(
-            child: Text("Complete",
-                style: TextStyle(
-                    fontSize: 18,
-                    color: kPrimaryColor,
-                    fontWeight: FontWeight.bold)),
+          width: 110,
+          child: RoundedButton(
+            title: "Complete",
+            btnColor: kPrimaryColor,
+            textColor: Colors.white,
             onPressed: () async {
               await (context)
                   .read<FlutterFireAuthService>()
