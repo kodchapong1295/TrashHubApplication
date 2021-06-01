@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/components/RoundedButton.dart';
-import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
-import 'package:trashhub/screens/NGOsScreen/ViewReportNGO.dart';
-import 'Trip.dart';
 import 'package:trashhub/constants.dart';
-
 import 'package:provider/provider.dart';
 
 class CustomeDialog extends StatelessWidget {

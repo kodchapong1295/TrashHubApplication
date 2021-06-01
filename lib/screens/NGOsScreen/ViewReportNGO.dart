@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trashhub/components/ViewReport/homeview.dart';
 import 'dart:async';
-import 'package:provider/provider.dart';
 import 'package:trashhub/constants.dart';
-import 'package:trashhub/screens/AuthenMenu.dart';
-import 'package:trashhub/screens/NGOsScreen/NGOProfile.dart';
 
 class ViewReport extends StatefulWidget {
   Function refreshScreen;

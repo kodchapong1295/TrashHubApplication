@@ -1,12 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:trashhub/components/DialogShowStatus.dart';
 import 'package:trashhub/components/ViewReport/DialogComplete.dart';
 import 'package:trashhub/components/ViewReport/DialogShowOngoing.dart';
 import 'package:trashhub/constants.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:trashhub/models/NGO.dart';
 import 'package:provider/provider.dart';
 import 'package:trashhub/Firebase.dart';
 import 'package:trashhub/models/Report.dart';
